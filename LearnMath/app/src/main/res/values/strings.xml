@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">LearnMath</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sections_view">SectionsView</string>
+    <string name="title_activity_section_detail">SectionDetail</string>
+    <string name="title_activity_practice">PracticeActivity</string>
+    <string name="title_activity_practice_results">PracticeResults</string>
+    <string name="practice_results_no_badges">No new badges unlocked.</string>
+    <string name="practice_results_all_badges_prior">All badges have been unlocked for this
+    section</string>
+    <string name="practice_results_all_badges_unlocked">You unlocked all badges for this section's practice " +
+                        "problems. Congratulations!</string>
+    <string name="practice_results_two_badges_unlocked">You unlocked two new badges!</string>
+    <string name="practice_results_one_badge_unlocked1">You unlocked the </string>
+    <string name="practice_results_one_badge_unlocked2"> badge!</string>
+    <string name="practice_badge1_name">Hard Worker Badge</string>
+    <string name="practice_badge2_name">Quick Learner Badge</string>
+    <string name="practice_badge3_name">Training Genius Badge</string>
+</resources>
