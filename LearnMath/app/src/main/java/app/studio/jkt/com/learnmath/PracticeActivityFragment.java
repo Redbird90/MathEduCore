@@ -104,44 +104,43 @@ public class PracticeActivityFragment extends Fragment {
                 linearLayout.addView(textViewQ);
                 linearLayout.addView(editTextA);
 
-                Log.i("PAF", checkForNullViews(scrollableView));
-                Log.i("PAF", checkForNullViews(linearLayout));
-
-                scrollableView.removeAllViews();
-                scrollableView.addView(linearLayout);
-
                 problemNumber += 1;
 
             }
-
-            Button submitButton = (Button) rootView.findViewById(R.id.submitButtonPractice);
-            submitButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent practiceCompleteView = new Intent(getActivity(),
-                            PracticeResults.class);
-
-                    // TODO: Create method to check answers in all edit text fields
-                    // Sample answer check pass
-                    practiceCompleteView.putExtra(Intent.EXTRA_TEXT, sectionKey);
-                    practiceCompleteView.putExtra("numTotalAnswers", 5);
-                    practiceCompleteView.putExtra("numCorrectAnswers", 3);
-                    practiceCompleteView.putExtra("numTotalQuestions", 9);
-                    practiceCompleteView.putExtra("arrayIncorrectQuestions", new Problem[]
-                            {wordProblem1, wordProblem1, wordProblem1});
-                    practiceCompleteView.putExtra("arrayNewBadges", new int[] {1, 2});
-                    practiceCompleteView.putExtra("priorNumCorrectAnswers", 2);
-
-
-                    // TODO: Pass incorrect problems to new Activity
-
-                    startActivity(practiceCompleteView);
-                }
-            });
-
-
         }
 
+        Button submitButtonPractice = new Button(getActivity());
+        submitButtonPractice.setText(getString(R.string.practice_submit_button_text));
+        submitButtonPractice.setGravity(Gravity.CENTER_HORIZONTAL);
+
+        linearLayout.addView(submitButtonPractice);
+
+        submitButtonPractice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent practiceCompleteView = new Intent(getActivity(),
+                        PracticeResults.class);
+
+                // TODO: Create method to check answers in all edit text fields
+                // Sample answer check pass
+                practiceCompleteView.putExtra(Intent.EXTRA_TEXT, sectionKey);
+                practiceCompleteView.putExtra("numTotalAnswers", 5);
+                practiceCompleteView.putExtra("numCorrectAnswers", 3);
+                practiceCompleteView.putExtra("numTotalQuestions", 9);
+                practiceCompleteView.putExtra("arrayIncorrectQuestions", new Problem[]
+                        {wordProblem1, wordProblem1, wordProblem1});
+                practiceCompleteView.putExtra("arrayNewBadges", new int[] {1, 2});
+                practiceCompleteView.putExtra("priorNumCorrectAnswers", 2);
+
+
+                // TODO: Pass incorrect problems to new Activity
+
+                startActivity(practiceCompleteView);
+            }
+        });
+
+        scrollableView.removeAllViews();
+        scrollableView.addView(linearLayout);
 
         return rootView;
     }

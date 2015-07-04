@@ -98,7 +98,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/practice_results_retry_button_yes"
         android:id="@+id/buttonRetry"
         android:layout_below="@+id/textViewRetry"
         android:layout_centerHorizontal="true"/>
@@ -106,7 +106,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/practice_results_retry_button_no"
         android:id="@+id/buttonBackToSection"
         android:layout_below="@+id/buttonRetry"
         android:layout_centerHorizontal="true"/>

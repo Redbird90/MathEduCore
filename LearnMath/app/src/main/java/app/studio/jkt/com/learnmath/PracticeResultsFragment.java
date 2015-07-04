@@ -1,6 +1,7 @@
 package app.studio.jkt.com.learnmath;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -61,8 +62,25 @@ public class PracticeResultsFragment extends Fragment {
         setTextViewNewBestAttributes(textViewNewBest);
         setImageViewBadges(imageViewStarterBadge, imageViewQuickBadge, imageViewTrainingBadge);
         setTextViewBadgesInfo(textViewBadgesInfo);
+        setTextViewRetry(textViewRetry);
+        // Retry Buttons text already set; constants
 
         return rootView;
+    }
+
+    private void setTextViewRetry(TextView textViewRetry) {
+
+        Intent intent = getActivity().getIntent();
+        Bundle data = intent.getExtras();
+        Parcelable[] incorrectProblems = data.getParcelableArray
+                ("arrayIncorrectQuestions");
+
+        if (incorrectProblems.length > 0) {
+            textViewRetry.setText(getString(R.string.practice_results_retry_incorrect));
+        } else {
+            textViewRetry.setText(getString(R.string.practice_results_retry_correct));
+        }
+
     }
 
     private void setTextViewBadgesInfo(TextView textViewBadgesInfo) {
@@ -79,8 +97,17 @@ public class PracticeResultsFragment extends Fragment {
             } else if (arrayNewBadges.length == 2) {
                 textViewBadgesInfo.setText(getString(R.string.practice_results_two_badges_unlocked));
             } else {
+                String sectionBadgeName = "Badge Name Debug: " + arrayNewBadges[0];
+                switch (arrayNewBadges[0]) {
+                    case 0:
+                        sectionBadgeName = "Hard Worker";
+                    case 1:
+                        sectionBadgeName = "Quick Learner";
+                    case 2:
+                        sectionBadgeName = "Training Genius";
+                }
                 textViewBadgesInfo.setText(getString(R.string
-                        .practice_results_one_badge_unlocked1) + sectionKey + section badge_name
+                        .practice_results_one_badge_unlocked1) + sectionKey + sectionBadgeName
                         + getString(R.string.practice_results_one_badge_unlocked2));
             }
         } else {

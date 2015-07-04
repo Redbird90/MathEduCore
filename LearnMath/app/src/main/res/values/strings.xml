@@ -9,12 +9,20 @@
     <string name="practice_results_no_badges">No new badges unlocked.</string>
     <string name="practice_results_all_badges_prior">All badges have been unlocked for this
     section</string>
-    <string name="practice_results_all_badges_unlocked">You unlocked all badges for this section's practice " +
+    <string name="practice_results_all_badges_unlocked">You unlocked all badges for this
+        section\'s practice " +
                         "problems. Congratulations!</string>
     <string name="practice_results_two_badges_unlocked">You unlocked two new badges!</string>
     <string name="practice_results_one_badge_unlocked1">You unlocked the </string>
-    <string name="practice_results_one_badge_unlocked2"> badge!</string>
+    <string name="practice_results_one_badge_unlocked2"> Badge!</string>
     <string name="practice_badge1_name">Hard Worker Badge</string>
     <string name="practice_badge2_name">Quick Learner Badge</string>
     <string name="practice_badge3_name">Training Genius Badge</string>
+    <string name="practice_results_retry_incorrect">Would you like to retry the practice questions
+        you missed?</string>
+    <string name="practice_results_retry_correct">Would you like to go over the practice
+        questions again?</string>
+    <string name="practice_results_retry_button_yes">Yes please!</string>
+    <string name="practice_results_retry_button_no">No, return to section overview.</string>
+    <string name="practice_submit_button_text">Submit Answers</string>
 </resources>

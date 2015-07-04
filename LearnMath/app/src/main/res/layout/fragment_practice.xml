@@ -12,12 +12,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollViewPractice"/>
-
+        android:id="@+id/scrollViewPractice">
+<!--
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollViewPractice"
         android:text="Submit Answers"
         android:id="@+id/submitButtonPractice"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"/>!-->
+    </ScrollView>
 </RelativeLayout>
