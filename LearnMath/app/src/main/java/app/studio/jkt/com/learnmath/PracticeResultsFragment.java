@@ -1,6 +1,8 @@
 package app.studio.jkt.com.learnmath;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -115,10 +117,28 @@ public class PracticeResultsFragment extends Fragment {
         }
     }
 
-    private void setImageViewBadges(ImageView imageViewStarterBadge, ImageView imageViewQuickBadge,
-                                    ImageView imageViewTrainingBadge) {
+    private void setImageViewBadges(ImageView imageViewStarterBadge, ImageView imageViewQuickBadge, ImageView imageViewTrainingBadge) {
+
+        // TODO: Fix below 5 value after debugging
+        Intent currentIntent = getActivity().getIntent();
+        int sectionNumber = currentIntent.getIntExtra("sectionNumber", 5);
 
         // TODO: Create data storage system for keeping track of user progress
+/*        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        String prefix = "section" + String.valueOf(sectionNumber) + ".";
+        if (sharedPreferences.getBoolean(prefix + "prac_b1unlocked", false)) {
+            imageViewStarterBadge.setImageResource(R.drawable.practicebadge1);
+        }
+        if (sharedPreferences.getBoolean(prefix + "prac_b2unlocked", false)) {
+            imageViewQuickBadge.setImageResource(R.drawable.practicebadge2);
+        }
+        if (sharedPreferences.getBoolean(prefix + "prac_b3unlocked", false)) {
+            imageViewTrainingBadge.setImageResource(R.drawable.practicebadge3);
+        }*/
+
+        // in the meantime...
+        imageViewStarterBadge.setImageResource(R.drawable.practicebadge1);
+        imageViewQuickBadge.setImageResource(R.drawable.practicebadge2);
 
     }
 

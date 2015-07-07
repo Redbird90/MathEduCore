@@ -2,27 +2,67 @@
     <string name="app_name">LearnMath</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="section_1_name">Section 1: Ratios &amp; Proportional Relationships</string>
+
     <string name="title_activity_sections_view">SectionsView</string>
     <string name="title_activity_section_detail">SectionDetail</string>
+
     <string name="title_activity_practice">PracticeActivity</string>
     <string name="title_activity_practice_results">PracticeResults</string>
     <string name="practice_results_no_badges">No new badges unlocked.</string>
     <string name="practice_results_all_badges_prior">All badges have been unlocked for this
     section</string>
     <string name="practice_results_all_badges_unlocked">You unlocked all badges for this
-        section\'s practice " +
-                        "problems. Congratulations!</string>
+        section\'s practice problems. Congratulations!</string>
     <string name="practice_results_two_badges_unlocked">You unlocked two new badges!</string>
     <string name="practice_results_one_badge_unlocked1">You unlocked the </string>
     <string name="practice_results_one_badge_unlocked2"> Badge!</string>
     <string name="practice_badge1_name">Hard Worker Badge</string>
     <string name="practice_badge2_name">Quick Learner Badge</string>
     <string name="practice_badge3_name">Training Genius Badge</string>
-    <string name="practice_results_retry_incorrect">Would you like to retry the practice questions
-        you missed?</string>
+    <string name="practice_results_retry_incorrect">Would you like to retry the practice questions you missed?</string>
     <string name="practice_results_retry_correct">Would you like to go over the practice
         questions again?</string>
     <string name="practice_results_retry_button_yes">Yes please!</string>
     <string name="practice_results_retry_button_no">No, return to section overview.</string>
     <string name="practice_submit_button_text">Submit Answers</string>
+
+    <string name="title_activity_progress_view">progressView</string>
+    <string name="progress_study_stats">Study Stats</string>
+    <string name="progress_study_time">Time Spent Studying: </string>
+    <string name="progress_prob_tackled">Problems Tackled: </string>
+    <string name="progress_prob_defeated">Problems Defeated: </string>
+    <string name="progress_best_score">Best Test Score: </string>
+    <string name="progress_last_score">Last Test Score: </string>
+    <string name="title_activity_section_completion">SectionCompletion</string>
+    <string name="progress_practice_header">Practice</string>
+    <string name="progress_test_header">Test Prep</string>
+    <string name="progress_section_problems_answered">Problems Answered: </string>
+    <string name="progress_section_problems_correct">Problems Correct: </string>
+    <string name="progress_section_badges_unlocked">Badges Unlocked: </string>
+    <string name="progress_fastest_time">Fastest Test Completion Time: </string>
+    <string name="progress_review_time">Average Test Review Time: </string>
+    <string name="progress_completion_time">Average Test Completion Time</string>
+    <string name="title_activity_badges_view">BadgesView</string>
+    <string name="progress_section_button">Section Completion</string>
+    <string name="progress_badges_button">Badges Unlocked</string>
+    <string name="progress_return_button">Return to Menu</string>
+
+    <string name="badges_header">Badge Collection</string>
+    <string name="badges_information">Tap on a badge to see details.</string>
+
+    <string name="back_button">Back</string>
+    <string name="title_activity_test_prep">TestPrepActivity</string>
+    <string name="title_activity_test_prep_prefs_view">TestPrepPrefsView</string>
+    <string name="testprep_recommendation">For the test prep section there are several recommendations:/nTry to complete the test with a time requirement.</string>
+    <string name="testprep_start_button">Start Test</string>
+    <string name="testprep_time_allowed">Time Allowed</string>
+    <string name="testprep_recommended_text">(Recommended)</string>
+    <string name="testprep_min">min</string>
+    <string name="title_activity_test_results">TestResults</string>
+    <string name="testprep_time_remaining">Time Remaining:</string>
+    <string name="testprep_time_elapsed">Time Elapsed!</string>
+    <string name="testprep_submit_test">Submit Test</string>
+
 </resources>

@@ -74,7 +74,7 @@ public class PracticeActivityFragment extends Fragment {
         problemList.add(wordProblem1);
         problemList.add(wordProblem1);
 
-        int problemNumber = 1;
+        problemNumber = 1;
         for (int i=0; i<problemList.size(); i++) {
             Problem currProblem = problemList.get(i);
             String probType = currProblem.getProblemType();
@@ -120,10 +120,12 @@ public class PracticeActivityFragment extends Fragment {
             public void onClick(View v) {
                 Intent practiceCompleteView = new Intent(getActivity(),
                         PracticeResults.class);
+                Intent currIntent = getActivity().getIntent();
 
                 // TODO: Create method to check answers in all edit text fields
                 // Sample answer check pass
                 practiceCompleteView.putExtra(Intent.EXTRA_TEXT, sectionKey);
+                practiceCompleteView.putExtra("sectionNumber", currIntent.getIntExtra("sectionNumber", 1));
                 practiceCompleteView.putExtra("numTotalAnswers", 5);
                 practiceCompleteView.putExtra("numCorrectAnswers", 3);
                 practiceCompleteView.putExtra("numTotalQuestions", 9);

@@ -47,8 +47,8 @@ public class SectionDetailFragment extends Fragment {
             public void onClick(View view) {
                 Intent practiceIntent = new Intent(getActivity(), PracticeActivity.class);
                 Intent currIntent = getActivity().getIntent();
-                practiceIntent.putExtra(Intent.EXTRA_TEXT, currIntent.getStringExtra(Intent
-                        .EXTRA_TEXT));
+                practiceIntent.putExtra(Intent.EXTRA_TEXT, currIntent.getStringExtra(Intent.EXTRA_TEXT));
+                practiceIntent.putExtra("sectionNumber", currIntent.getIntExtra("sectionNumber", 1));
                 startActivity(practiceIntent);
             }
         });
@@ -58,8 +58,11 @@ public class SectionDetailFragment extends Fragment {
         imageButtonTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent testPrepIntent = new Intent(getActivity(), TestPrepActivity.class);
-                //startActivity(testPrepIntent);
+                Intent testPrepIntent = new Intent(getActivity(), TestPrepPrefsView.class);
+                Intent currIntent2 = getActivity().getIntent();
+                testPrepIntent.putExtra(Intent.EXTRA_TEXT, currIntent2.getStringExtra(Intent.EXTRA_TEXT));
+                testPrepIntent.putExtra("sectionNumber", currIntent2.getIntExtra("sectionNumber", 1));
+                startActivity(testPrepIntent);
             }
         });
         imageButtonTP.setImageResource(R.drawable.testprepbtn);

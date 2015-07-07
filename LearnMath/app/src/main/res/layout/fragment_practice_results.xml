@@ -47,33 +47,40 @@
         android:textStyle="bold"/>
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewNewBest"
-        android:id="@+id/tableLayout">
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tableLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/border">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewStarterBadge"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked1"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewQuickBadge"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked2"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageViewTrainingBadge"
-                android:background="@drawable/border"/>
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked3"/>
         </TableRow>
     </TableLayout>
 

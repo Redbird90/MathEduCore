@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="section1.prac_total_problems">9</integer>
+    <integer name="section1.test_total_problems">15</integer>
+    <integer name="section1.test_time1">8</integer>
+    <integer name="section1.test_time2">12</integer>
+    <integer name="section1.test_time3">18</integer>
+    <integer name="section1.test_time4">30</integer>
+    <integer name="section1.test_time_recommended">3</integer>
+    <integer name="practice_total_badges">3</integer>
+    <integer name="test_total_badges">3</integer>
+
+</resources>

@@ -32,6 +32,30 @@
             android:name=".PracticeResults"
             android:label="@string/title_activity_practice_results" >
         </activity>
+        <activity
+            android:name=".ProgressView"
+            android:label="@string/title_activity_progress_view" >
+        </activity>
+        <activity
+            android:name=".SectionCompletion"
+            android:label="@string/title_activity_section_completion" >
+        </activity>
+        <activity
+            android:name=".BadgesView"
+            android:label="@string/title_activity_badges_view" >
+        </activity>
+        <activity
+            android:name=".TestPrepActivity"
+            android:label="@string/title_activity_test_prep" >
+        </activity>
+        <activity
+            android:name=".TestPrepPrefsView"
+            android:label="@string/title_activity_test_prep_prefs_view" >
+        </activity>
+        <activity
+            android:name=".TestResults"
+            android:label="@string/title_activity_test_results" >
+        </activity>
     </application>
 
 </manifest>
