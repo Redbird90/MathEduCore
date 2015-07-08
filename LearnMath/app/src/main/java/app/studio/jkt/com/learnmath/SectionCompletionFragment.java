@@ -32,7 +32,7 @@ public class SectionCompletionFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_section_completion, container, false);
 
-        ScrollView scrollableView = (ScrollView) getActivity().findViewById(R.id.scrollViewSectionCompletion);
+        ScrollView scrollableView = (ScrollView) rootView.findViewById(R.id.scrollViewSectionCompletion);
 
         LinearLayout outerLinLayout = new LinearLayout(getActivity());
         outerLinLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -70,7 +70,8 @@ public class SectionCompletionFragment extends Fragment {
             tvHeader.setText(getString(R.string.section_1_name));
             tvSubHeaderPractice.setText(getString(R.string.progress_practice_header));
 
-            SharedPreferences shPrefs = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+            SharedPreferences shPrefs = this.getActivity().getSharedPreferences("progress", Context
+                    .MODE_PRIVATE);
             // Use 3 as default value for debugging purposes
             // TODO: Reset default values from SharedPreferences
 
@@ -88,11 +89,11 @@ public class SectionCompletionFragment extends Fragment {
             if (shPrefs.getBoolean(prefix + "prac_b3unlocked", false)) {
                 badgesUnlockedPractice += 1;
             }
-            tvPracProbAnswered.setText(getString(R.string.progress_section_problems_answered) + String.valueOf(shPrefs.getInt(prefix + "prac_problems_attempted", 3)) + "//" + totalPracticeProblems);
+            tvPracProbAnswered.setText(getString(R.string.progress_section_problems_answered) + String.valueOf(shPrefs.getInt(prefix + "prac_problems_attempted", 3)) + "/" + totalPracticeProblems);
 
-            tvPracProbCorrect.setText(getString(R.string.progress_section_problems_correct) + String.valueOf(shPrefs.getInt(prefix + "prac_problems_correct", 3)) + "//" + totalPracticeProblems);
+            tvPracProbCorrect.setText(getString(R.string.progress_section_problems_correct) + String.valueOf(shPrefs.getInt(prefix + "prac_problems_correct", 3)) + "/" + totalPracticeProblems);
 
-            tvPracBadgesUnlocked.setText(getString(R.string.progress_section_badges_unlocked) + String.valueOf(badgesUnlockedPractice) + "//" + String.valueOf(getResources().getInteger(R.integer.practice_total_badges)));
+            tvPracBadgesUnlocked.setText(getString(R.string.progress_section_badges_unlocked) + String.valueOf(badgesUnlockedPractice) + "/" + String.valueOf(getResources().getInteger(R.integer.practice_total_badges)));
 
             String totalTestProblems = String.valueOf(getResources().getInteger(R.integer.section1_test_total_problems));
             tvSubHeaderTest.setText(getString(R.string.progress_test_header));
@@ -108,11 +109,11 @@ public class SectionCompletionFragment extends Fragment {
                 badgesUnlockedTest += 1;
             }
 
-            tvTestProbAnswered.setText(getString(R.string.progress_section_problems_answered) + String.valueOf(shPrefs.getInt(prefix + "test_problems_attempted", 3)) + "//" + totalTestProblems);
+            tvTestProbAnswered.setText(getString(R.string.progress_section_problems_answered) + String.valueOf(shPrefs.getInt(prefix + "test_problems_attempted", 3)) + "/" + totalTestProblems);
 
-            tvTestProbCorrect.setText(getString(R.string.progress_section_problems_correct) + String.valueOf(shPrefs.getInt(prefix + "test_problems_correct", 3)) + "//" + totalTestProblems);
+            tvTestProbCorrect.setText(getString(R.string.progress_section_problems_correct) + String.valueOf(shPrefs.getInt(prefix + "test_problems_correct", 3)) + "/" + totalTestProblems);
 
-            tvTestBadgesUnlocked.setText(getString(R.string.progress_section_badges_unlocked) + String.valueOf(badgesUnlockedTest) + "//" + String.valueOf(getResources().getInteger(R.integer.test_total_badges)));
+            tvTestBadgesUnlocked.setText(getString(R.string.progress_section_badges_unlocked) + String.valueOf(badgesUnlockedTest) + "/" + String.valueOf(getResources().getInteger(R.integer.test_total_badges)));
 
             tvTestFastestTime.setText(getString(R.string.progress_fastest_time) + String.valueOf(shPrefs.getInt(prefix + "test_fastest_time", 3)));
 

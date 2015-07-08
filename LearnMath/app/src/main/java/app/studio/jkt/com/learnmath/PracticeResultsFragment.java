@@ -124,7 +124,8 @@ public class PracticeResultsFragment extends Fragment {
         int sectionNumber = currentIntent.getIntExtra("sectionNumber", 5);
 
         // TODO: Create data storage system for keeping track of user progress
-/*        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+/*        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("progress",
+Context.MODE_PRIVATE);
         String prefix = "section" + String.valueOf(sectionNumber) + ".";
         if (sharedPreferences.getBoolean(prefix + "prac_b1unlocked", false)) {
             imageViewStarterBadge.setImageResource(R.drawable.practicebadge1);
@@ -149,7 +150,7 @@ public class PracticeResultsFragment extends Fragment {
         int priorCorrect = intent.getIntExtra("priorNumCorrectAnswers", 1);
 
         if (totCorrect > priorCorrect) {
-            textViewNewBest.setText("New Best!");
+            textViewNewBest.setText(getString(R.string.results_new_best));
             textViewNewBest.setVisibility(View.VISIBLE);
         } else {
             textViewNewBest.setVisibility(View.INVISIBLE);

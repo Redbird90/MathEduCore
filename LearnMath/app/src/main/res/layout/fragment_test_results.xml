@@ -6,4 +6,195 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="app.studio.jkt.com.learnmath.TestResultsFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/testprep_results_header"
+        android:id="@+id/textViewTestResultsHeader"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/testprep_score_intro"
+        android:id="@+id/textViewScoreIntro"
+        android:layout_below="@+id/textViewTestResultsHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageViewScore"
+        android:layout_alignTop="@+id/textViewScoreIntro"
+        android:layout_toRightOf="@+id/textViewTestResultsHeader"
+        android:layout_toEndOf="@+id/textViewTestResultsHeader"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textViewTestProbCorrect"
+        android:layout_below="@+id/textViewScoreIntro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textViewTestProbAnswered"
+        android:layout_below="@+id/textViewTestProbCorrect"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textViewTestNewBest"
+        android:layout_above="@+id/textViewTestProbCorrect"
+        android:layout_toRightOf="@+id/imageViewScore"
+        android:layout_toEndOf="@+id/imageViewScore"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textViewTestTimeSpent"
+        android:layout_below="@+id/textViewTestProbAnswered"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textViewTestTimeRem"
+        android:layout_below="@+id/textViewTestTimeSpent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textViewTestTimeRev"
+        android:layout_below="@+id/textViewTestTimeRem"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTestTimeRev"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tableLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewTestBadge1"
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked1"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewTestBadge2"
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked2"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewTestBadge3"
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked3"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/border">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewTestBadge4"
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked2"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewTestBadge5"
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked2"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageViewTestBadge6"
+                android:background="@drawable/border"
+                android:src="@drawable/practicebadgelocked2"/>
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textViewTestBadgesInfo"
+        android:layout_below="@+id/tableLayout"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/testprep_share"
+        android:id="@+id/buttonTestShare"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textViewTestBadgesInfo"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonTestShare">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/testprep_review_incorrect"
+            android:id="@+id/buttonTestReview"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/testprep_backtoMM"
+            android:id="@+id/buttonTestBackMM"/>
+    </LinearLayout>
+
 </RelativeLayout>

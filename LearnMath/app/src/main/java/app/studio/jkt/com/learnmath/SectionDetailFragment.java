@@ -67,12 +67,14 @@ public class SectionDetailFragment extends Fragment {
         });
         imageButtonTP.setImageResource(R.drawable.testprepbtn);
 
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.imageViewSectionOverview);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
+/*        ImageView imageView = (ImageView) rootView.findViewById(R.id.imageViewSectionOverview);
+        DisplayMetrics displayMerics = new DisplayMetrics();
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(imageView);
-        bitmapWorkerTask.execute(R.drawable.samplescrollableimagelowres);
+        bitmapWorkerTask.execute(R.drawable.samplescrollableimagelowres);*/
         //imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable
         //        .samplescrollableimage, 480, 2400));
+
+        // TODO: Set click listener for buttonSDBack
 
         return rootView;
     }

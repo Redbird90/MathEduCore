@@ -16,34 +16,34 @@
     <string name="practice_results_all_badges_unlocked">You unlocked all badges for this
         section\'s practice problems. Congratulations!</string>
     <string name="practice_results_two_badges_unlocked">You unlocked two new badges!</string>
-    <string name="practice_results_one_badge_unlocked1">You unlocked the </string>
-    <string name="practice_results_one_badge_unlocked2"> Badge!</string>
+    <string name="practice_results_one_badge_unlocked1">"You unlocked the "</string>
+    <string name="practice_results_one_badge_unlocked2">" Badge!"</string>
     <string name="practice_badge1_name">Hard Worker Badge</string>
     <string name="practice_badge2_name">Quick Learner Badge</string>
     <string name="practice_badge3_name">Training Genius Badge</string>
     <string name="practice_results_retry_incorrect">Would you like to retry the practice questions you missed?</string>
     <string name="practice_results_retry_correct">Would you like to go over the practice
         questions again?</string>
-    <string name="practice_results_retry_button_yes">Yes please!</string>
-    <string name="practice_results_retry_button_no">No, return to section overview.</string>
+    <string name="practice_results_retry_button_yes">Yes</string>
+    <string name="practice_results_retry_button_no">No, return to section overview</string>
     <string name="practice_submit_button_text">Submit Answers</string>
 
     <string name="title_activity_progress_view">progressView</string>
     <string name="progress_study_stats">Study Stats</string>
-    <string name="progress_study_time">Time Spent Studying: </string>
-    <string name="progress_prob_tackled">Problems Tackled: </string>
-    <string name="progress_prob_defeated">Problems Defeated: </string>
-    <string name="progress_best_score">Best Test Score: </string>
-    <string name="progress_last_score">Last Test Score: </string>
+    <string name="progress_study_time">"Time Spent Studying: "</string>
+    <string name="progress_prob_tackled">"Problems Tackled: "</string>
+    <string name="progress_prob_defeated">"Problems Defeated: "</string>
+    <string name="progress_best_score">"Best Test Score: "</string>
+    <string name="progress_last_score">"Last Test Score: "</string>
     <string name="title_activity_section_completion">SectionCompletion</string>
     <string name="progress_practice_header">Practice</string>
     <string name="progress_test_header">Test Prep</string>
-    <string name="progress_section_problems_answered">Problems Answered: </string>
-    <string name="progress_section_problems_correct">Problems Correct: </string>
-    <string name="progress_section_badges_unlocked">Badges Unlocked: </string>
-    <string name="progress_fastest_time">Fastest Test Completion Time: </string>
-    <string name="progress_review_time">Average Test Review Time: </string>
-    <string name="progress_completion_time">Average Test Completion Time</string>
+    <string name="progress_section_problems_answered">"Problems Answered: "</string>
+    <string name="progress_section_problems_correct">"Problems Correct: "</string>
+    <string name="progress_section_badges_unlocked">"Badges Unlocked: "</string>
+    <string name="progress_fastest_time">"Fastest Test Completion Time: "</string>
+    <string name="progress_review_time">"Average Test Review Time: "</string>
+    <string name="progress_completion_time">"Average Test Completion Time: "</string>
     <string name="title_activity_badges_view">BadgesView</string>
     <string name="progress_section_button">Section Completion</string>
     <string name="progress_badges_button">Badges Unlocked</string>
@@ -64,5 +64,17 @@
     <string name="testprep_time_remaining">Time Remaining:</string>
     <string name="testprep_time_elapsed">Time Elapsed!</string>
     <string name="testprep_submit_test">Submit Test</string>
+    <string name="testprep_share">Share My Score!</string>
+    <string name="testprep_backtoMM">Back to Main Menu</string>
+    <string name="testprep_results_header">Test Performance</string>
+    <string name="testprep_score_intro">"You received a grade of ... "</string>
+    <string name="results_new_best">New Best!</string>
+    <string name="testprep_review_incorrect">Review Problems I Missed</string>
+    <string name="testprep_button_review">Begin Review</string>
+    <string name="testing_rev_dialog_msg">Would you like to begin reviewing your answers?</string>
+    <string name="testing_rev_dialog_title">Enter Review Mode</string>
+    <string name="yes">Yes</string>
+    <string name="testing_rev_btn_pressed">In Review Mode</string>
+    <string name="not_yet">Not Yet</string>
 
 </resources>

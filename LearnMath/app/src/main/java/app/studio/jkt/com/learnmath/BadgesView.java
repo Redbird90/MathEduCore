@@ -1,5 +1,6 @@
 package app.studio.jkt.com.learnmath;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,4 +37,6 @@ public class BadgesView extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

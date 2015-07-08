@@ -27,15 +27,15 @@ public class ProgressViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_progress_view, container, false);
 
-        TextView textViewStudyTime = (TextView) getActivity().findViewById(R.id.textViewStudyTime);
-        TextView textViewProblemsTackled = (TextView) getActivity().findViewById(R.id.textViewProblemsTackled);
-        TextView textViewProblemsDefeated = (TextView) getActivity().findViewById(R.id.textViewProblemsDefeated);
-        TextView textViewBestScore = (TextView) getActivity().findViewById(R.id.textViewBestScore);
-        TextView textViewLastScore = (TextView) getActivity().findViewById(R.id.textViewLastScore);
-
-        Button buttonSectionCompletion = (Button) getActivity().findViewById(R.id.buttonSectionCompletion);
-        Button buttonBadgesUnlocked = (Button) getActivity().findViewById(R.id.buttonBadgesUnlocked);
-        Button buttonReturnToMenu = (Button) getActivity().findViewById(R.id.buttonProgressToMenu);
+        TextView textViewStudyTime = (TextView) rootView.findViewById(R.id.textViewStudyTime);
+        TextView textViewProblemsTackled = (TextView) rootView.findViewById(R.id.textViewProblemsTackled);
+        TextView textViewProblemsDefeated = (TextView) rootView.findViewById(R.id.textViewProblemsDefeated);
+        TextView textViewBestScore = (TextView) rootView.findViewById(R.id.textViewBestScore);
+        TextView textViewLastScore = (TextView) rootView.findViewById(R.id.textViewLastScore);
+        
+        Button buttonSectionCompletion = (Button) rootView.findViewById(R.id.buttonSectionCompletion);
+        Button buttonBadgesUnlocked = (Button) rootView.findViewById(R.id.buttonBadgesUnlocked);
+        Button buttonReturnToMenu = (Button) rootView.findViewById(R.id.buttonProgressToMenu);
 
         buttonSectionCompletion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,8 @@ public class ProgressViewFragment extends Fragment {
         });
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("progress",
+                Context.MODE_PRIVATE);
 
         textViewStudyTime.setText(getString(R.string.progress_study_time) + String.valueOf(sharedPreferences.getInt("study_time", 1)));
 

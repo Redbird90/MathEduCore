@@ -32,15 +32,15 @@ public class TestPrepPrefsViewFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_test_prep_prefs_view, container, false);
 
-        Button buttonT1 = (Button) getActivity().findViewById(R.id.buttonTime1);
-        Button buttonT2 = (Button) getActivity().findViewById(R.id.buttonTime2);
-        Button buttonT3 = (Button) getActivity().findViewById(R.id.buttonTime3);
-        Button buttonT4 = (Button) getActivity().findViewById(R.id.buttonTime4);
+        Button buttonT1 = (Button) rootView.findViewById(R.id.buttonTime1);
+        Button buttonT2 = (Button) rootView.findViewById(R.id.buttonTime2);
+        Button buttonT3 = (Button) rootView.findViewById(R.id.buttonTime3);
+        Button buttonT4 = (Button) rootView.findViewById(R.id.buttonTime4);
 
         final int sectionNumber = getActivity().getIntent().getIntExtra("sectionNumber", 4);
         String prefix = "section" + String.valueOf(sectionNumber) + ".";
 
-        final TextView textViewTimeAllowed = (TextView) getActivity().findViewById(R.id.textViewTimeAllowed);
+        final TextView textViewTimeAllowed = (TextView) rootView.findViewById(R.id.textViewTimeAllowed);
         // Time Allowed(10 Q's): 10 Minutes
         textViewTimeAllowed.setText(getString(R.string.testprep_time_allowed) + "(" + String.valueOf(getResources().getInteger(R.integer.section1_test_total_problems)) + " Q's): " + getChosenTime() + " Minutes");
 
@@ -51,8 +51,10 @@ public class TestPrepPrefsViewFragment extends Fragment {
             buttonT4.setText(String.valueOf(getResources().getInteger(R.integer.section1_test_time4)) + getString(R.string.testprep_min));
         }
 
-        TextView textViewRecText = (TextView) getActivity().findViewById(R.id.textViewRecText);
+        TextView textViewRecText = (TextView) rootView.findViewById(R.id.textViewRecText);
         ViewGroup.MarginLayoutParams recTextLayParams = (ViewGroup.MarginLayoutParams) textViewRecText.getLayoutParams();
+
+        // TODO: Fix layout of textViewRecText
         
         if (chosenTimeKey == 1) {
             
@@ -87,7 +89,7 @@ public class TestPrepPrefsViewFragment extends Fragment {
             timeValue[0] = getResources().getInteger(R.integer.section1_test_time3);
         }
 
-        Button buttonStart = (Button) getActivity().findViewById(R.id.buttonStartTest);
+        Button buttonStart = (Button) rootView.findViewById(R.id.buttonStartTest);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

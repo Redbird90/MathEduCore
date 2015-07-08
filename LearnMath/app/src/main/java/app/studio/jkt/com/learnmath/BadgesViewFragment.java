@@ -1,5 +1,6 @@
 package app.studio.jkt.com.learnmath;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,14 +30,15 @@ public class BadgesViewFragment extends Fragment {
         // MANUAL IMPLEMENTATION; does not draw upon Constants defined in XML
 
 
-        ImageView imageViewSec1P1 = (ImageView) getActivity().findViewById(R.id.imageViewSec1P1);
-        ImageView imageViewSec1P2 = (ImageView) getActivity().findViewById(R.id.imageViewSec1P2);
-        ImageView imageViewSec1P3 = (ImageView) getActivity().findViewById(R.id.imageViewSec1P3);
-        ImageView imageViewSec2P1 = (ImageView) getActivity().findViewById(R.id.imageViewSec2P1);
-        ImageView imageViewSec2P2 = (ImageView) getActivity().findViewById(R.id.imageViewSec2P2);
-        ImageView imageViewSec2P3 = (ImageView) getActivity().findViewById(R.id.imageViewSec2P3);
+        ImageView imageViewSec1P1 = (ImageView) rootView.findViewById(R.id.imageViewSec1P1);
+        ImageView imageViewSec1P2 = (ImageView) rootView.findViewById(R.id.imageViewSec1P2);
+        ImageView imageViewSec1P3 = (ImageView) rootView.findViewById(R.id.imageViewSec1P3);
+        ImageView imageViewSec2P1 = (ImageView) rootView.findViewById(R.id.imageViewSec2P1);
+        ImageView imageViewSec2P2 = (ImageView) rootView.findViewById(R.id.imageViewSec2P2);
+        ImageView imageViewSec2P3 = (ImageView) rootView.findViewById(R.id.imageViewSec2P3);
         
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("progress",
+                Context.MODE_PRIVATE);
 
         String prefix = "section" + "1" + ".";
         if (sharedPreferences.getBoolean(prefix + "prac_b1unlocked", false)) {
@@ -60,7 +62,7 @@ public class BadgesViewFragment extends Fragment {
 
         // TODO: Add click listeners for user tapping on badges which display badge details
 
-        Button backButton = (Button) getActivity().findViewById(R.id.buttonReturn);
+        Button backButton = (Button) rootView.findViewById(R.id.buttonReturn);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,4 +74,6 @@ public class BadgesViewFragment extends Fragment {
 
         return rootView;
     }
+
+
 }

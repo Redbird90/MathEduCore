@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 public class TestPrepActivity extends ActionBarActivity {
 
+    // TODO: Override back button functionality to implement a warning popup
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
