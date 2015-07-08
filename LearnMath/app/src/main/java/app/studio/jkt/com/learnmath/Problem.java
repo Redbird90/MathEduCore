@@ -9,4 +9,6 @@ public interface Problem extends Parcelable {
 
     public String getProblemType();
 
+    public String getAnswer();
+
 }

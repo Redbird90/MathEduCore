@@ -117,7 +117,7 @@ public class SectionCompletionFragment extends Fragment {
 
             tvTestFastestTime.setText(getString(R.string.progress_fastest_time) + String.valueOf(shPrefs.getInt(prefix + "test_fastest_time", 3)));
 
-            tvTestReviewTime.setText(getString(R.string.progress_review_time) + String.valueOf(shPrefs.getInt(prefix + "test_review_time", 3)));
+            tvTestReviewTime.setText(getString(R.string.progress_review_time) + String.valueOf(shPrefs.getInt(prefix + "test_avg_review_time", 3)));
 
             tvTestAvgCompletionTime.setText(getString(R.string.progress_completion_time) + String.valueOf(shPrefs.getInt(prefix + "test_avg_completion_time", 3)));
 

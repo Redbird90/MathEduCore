@@ -33,7 +33,10 @@ public class TestPrepActivityFragment extends Fragment {
     public ArrayList<Problem> testingProblemList;
     public boolean[] testingProbCorrect;
     public boolean[] testingProbAnswered;
+    public ArrayList incorrectProblemKeys;
+    public ArrayList<String> incorrectAnswers;
     private ArrayList<String> correctAnswers;
+    private ArrayList<EditText> editObjects;
     private int timeValueSec;
     private int timeRemainingSec;
     private int sectionNumber;
@@ -79,10 +82,12 @@ public class TestPrepActivityFragment extends Fragment {
         // TODO: Remove line below once ArrayList properly fetches information
         totalNumberOfTestingProblems = 3;
 
+        testingProblemNumber = 1;
+        correctAnswers = new ArrayList<String>(totalNumberOfTestingProblems);
+        editObjects = new ArrayList<EditText>(totalNumberOfTestingProblems);
         testingProbAnswered = new boolean[totalNumberOfTestingProblems];
         testingProbCorrect = new boolean[totalNumberOfTestingProblems];
 
-        testingProblemNumber = 1;
         for (int i=0; i < totalNumberOfTestingProblems; i++) {
             Problem currProblem = testingProblemList.get(i);
             String probType = currProblem.getProblemType();
@@ -112,6 +117,8 @@ public class TestPrepActivityFragment extends Fragment {
                 linearLayout.addView(textViewQ);
                 linearLayout.addView(editTextA);
 
+                editObjects.add(editTextA);
+                correctAnswers.add(currProblem.getAnswer());
                 testingProblemNumber += 1;
 
             }
@@ -139,26 +146,33 @@ public class TestPrepActivityFragment extends Fragment {
                 textViewTimeRemaining.setText(getString(R.string.testprep_time_elapsed));
                 Intent testResultsIntent2 = new Intent(getActivity(), TestResults.class);
 
-                testing
+                int timeSpentSec = timeValueSec;
+                int timeInReviewSeconds;
+                int problemsAnswered = updateGetProbAnswered(editObjects);
+                int problemsCorrect = updateGetProbCorrect(editObjects);
+                int grade = getGrade(problemsCorrect);
 
                 testResultsIntent2.putExtra("timeElapsed", true);
                 testResultsIntent2.putExtra("timeRemainingSec", 0);
-                int timeSpentSec = timeValueSec;
-                testResultsIntent2.putExtra("timeSpentSec", timeValueSec);
-                int grade = getGrade();
-                testResultsIntent2.putExtra("grade", grade);
-                testResultsIntent2.putExtra("gradeNewBest", updateGetGradeNewBest());
-                if (!atReview) {
-                    testResultsIntent2.putExtra("anyReview", false);
-                    testResultsIntent2.putExtra("timeInReviewSec", 0);
-                } else {
-                    int timeInReview = totAvailReviewTimeSec - timeRemainingSec;
-                    testResultsIntent2.putExtra("timeInReviewSec", timeInReview);
-                }
-                testResultsIntent2.putExtra("problemsAnswered", getProbAnswered());
-                testResultsIntent2.putExtra("problemsCorrect", getProbCorrect());
 
-                updateRelevantPrefs(timeSpentSec);
+                testResultsIntent2.putExtra("timeSpentSec", timeValueSec);
+
+                testResultsIntent2.putExtra("grade", grade);
+                testResultsIntent2.putExtra("gradeNewBest", updateGetGradeNewBest(grade));
+
+                if (!atReview) {
+                    timeInReviewSeconds = 0;
+                    testResultsIntent2.putExtra("timeInReviewSec", timeInReviewSeconds);
+                } else {
+                    timeInReviewSeconds = totAvailReviewTimeSec - timeRemainingSec;
+                    testResultsIntent2.putExtra("timeInReviewSec", timeInReviewSeconds);
+                }
+
+                testResultsIntent2.putExtra("problemsAnswered", problemsAnswered);
+
+                testResultsIntent2.putExtra("problemsCorrect", problemsCorrect);
+
+                updateRelevantPrefs(timeSpentSec, problemsAnswered, problemsCorrect, grade, timeInReviewSeconds);
                 startActivity(testResultsIntent2);
             }
         };
@@ -183,29 +197,43 @@ public class TestPrepActivityFragment extends Fragment {
         submitButtonTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Set onClick actions after test completion
+
                 Intent testResultsIntent = new Intent(getActivity(), TestResults.class);
 
                 countDownTimer.cancel();
+                int timeSpentSec = timeValueSec - timeRemainingSec;
+                int timeInReviewSec;
+                int problemsAnswered = updateGetProbAnswered(editObjects);
+                int problemsCorrect = updateGetProbCorrect(editObjects);
+                int grade = getGrade(problemsCorrect);
 
                 testResultsIntent.putExtra("timeElapsed", false);
                 testResultsIntent.putExtra("timeRemainingSec", timeRemainingSec);
-                int timeSpentSec = timeValueSec - timeRemainingSec;
-                testResultsIntent.putExtra("timeSpentSec", timeSpentSec);
-                testResultsIntent.putExtra("grade", getGrade());
-                testResultsIntent.putExtra("gradeNewBest", updateGetGradeNewBest());
-                if (!atReview) {
-                    testResultsIntent.putExtra("anyReview", false);
-                    testResultsIntent.putExtra("timeInReviewSec", 0);
-                } else {
-                    int timeInReview = totAvailReviewTimeSec;
-                    testResultsIntent.putExtra("timeInReviewSec", timeInReview);
-                }
-                int problemsAnswered = getProbAnswered();
-                testResultsIntent.putExtra("problemsAnswered", problemsAnswered);
-                testResultsIntent.putExtra("problemsCorrect", getProbCorrect());
 
-                updateRelevantPrefs(timeSpentSec);
+                testResultsIntent.putExtra("timeSpentSec", timeSpentSec);
+
+                testResultsIntent.putExtra("grade", grade);
+                testResultsIntent.putExtra("gradeNewBest", updateGetGradeNewBest(grade));
+
+                if (!atReview) {
+                    timeInReviewSec = 0;
+                    testResultsIntent.putExtra("timeInReviewSec", timeInReviewSec);
+                } else {
+                    timeInReviewSec = totAvailReviewTimeSec;
+                    testResultsIntent.putExtra("timeInReviewSec", timeInReviewSec);
+                }
+
+                testResultsIntent.putExtra("problemsAnswered", problemsAnswered);
+
+                testResultsIntent.putExtra("problemsCorrect", problemsCorrect);
+
+                for (int y=0; y < incorrectProblemKeys.size(); y++) {
+                   String prob_key_prefix = "problem_" + String.valueOf(y + 1);
+                    testResultsIntent.putExtra(prob_key_prefix + "_incorrect", (int) incorrectProblemKeys.get(y));
+                    testResultsIntent.putExtra(prob_key_prefix + "_inc_answer", incorrectAnswers.get(y));
+                }
+
+                updateRelevantPrefs(timeSpentSec, problemsAnswered, problemsCorrect, grade, timeInReviewSec);
                 startActivity(testResultsIntent);
             }
         });
@@ -238,10 +266,36 @@ public class TestPrepActivityFragment extends Fragment {
         return rootView;
     }
 
-    private boolean updateGetGradeNewBest() {
+    // END onCreateView()
+
+
+    private boolean updateGetGradeNewBest(int currentGrade) {
+
+        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = sharedPrefs.edit();
+
+        String prefix = "section" + String.valueOf(sectionNumber) + ".";
+
+        boolean best = false;
+
+        int oldBest = sharedPrefs.getInt(prefix + "test_best_grade", -1);
+        if (oldBest == -1) {
+            oldBest = currentGrade;
+            best = true;
+        } else {
+            if (oldBest < currentGrade) {
+                oldBest = currentGrade;
+                best = true;
+            }
+        }
+        prefsEditor.putInt(prefix + "test_best_grade", oldBest);
+
+        prefsEditor.commit();
+
+        return best;
     }
 
-    private void updateRelevantPrefs(int timeSpentSec) {
+    private void updateRelevantPrefs(int timeSpentSec, int problemsAnswered, int problemsCorrect, int currGrade, int timeInReviewSec) {
         // Relevant Prefs:
         // STUDYSTATS
         // time spent? (skip)
@@ -305,40 +359,151 @@ public class TestPrepActivityFragment extends Fragment {
         boolean badge5unlocked = sharedPreferences.getBoolean(prefix + "test_b5unlocked", false);
         boolean badge6unlocked = sharedPreferences.getBoolean(prefix + "test_b6unlocked", false);
 
+        float percentCorrect = problemsCorrect/totalNumberOfTestingProblems;
+        if (!badge1unlocked &&  percentCorrect > 0.70) {
+            editor.putBoolean(prefix + "test_b1unlocked", false);
+        }
+        if (!badge2unlocked && percentCorrect > 0.80) {
+            editor.putBoolean(prefix + "test_b2unlocked", false);
+        }
+        if (!badge3unlocked && percentCorrect > 0.90) {
+            editor.putBoolean(prefix + "test_b3unlocked", false);
+        }
+        if (!badge4unlocked && problemsAnswered == totalNumberOfTestingProblems) {
+            editor.putBoolean(prefix + "test_b4unlocked", false);
+        }
+        if (!badge5unlocked && TimeUnit.SECONDS.toMinutes((long) timeInReviewSec) >= 4) {
+            editor.putBoolean(prefix + "test_b5unlocked", false);
+        }
+        if (!badge6unlocked && TimeUnit.SECONDS.toMinutes((long) timeSpentSec) < 10) {
+            editor.putBoolean(prefix + "test_b6unlocked", false);
+        }
 
+        int fastestTime = sharedPreferences.getInt("test_fastest_time", 3);
+        if (fastestTime == -1) {
+            fastestTime = timeSpentSec;
+        } else {
+            if (fastestTime > timeSpentSec) {
+                fastestTime = timeSpentSec;
+            }
+        }
+        editor.putInt("test_fastest_time", fastestTime);
 
+        int avgReviewTime = sharedPreferences.getInt("test_avg_review_time", -1);
+        int numberRevTimes = sharedPreferences.getInt("test_avg_review_numbers", 0);
+        if  (numberRevTimes == 0) {
+            avgReviewTime = timeInReviewSec;
+            numberRevTimes += 1;
+        } else {
+            numberRevTimes += 1;
+            avgReviewTime = (avgReviewTime + timeInReviewSec) / (numberRevTimes);
+        }
+        editor.putInt("test_avg_review_time", avgReviewTime);
+        editor.putInt("test_avg_review_numbers", numberRevTimes);
 
+        int avgCompletionTime = sharedPreferences.getInt("test_avg_completion_time", -1);
+        int numberCompletionTimes = sharedPreferences.getInt("test_avg_completion_numbers", 0);
+        if (numberCompletionTimes == 0) {
+            avgCompletionTime = timeSpentSec;
+            numberCompletionTimes += 1;
+        } else {
+            numberCompletionTimes += 1;
+            avgCompletionTime = (avgCompletionTime + timeSpentSec) / (numberCompletionTimes);
+        }
+        editor.putInt("test_avg_completion_time", avgCompletionTime);
+        editor.putInt("test_avg_completion_numbers", numberCompletionTimes);
 
-
-
+        editor.commit();
 
     }
 
-    private boolean getGradeNewBest() {
-        return false;
-    }
-
-    private int getGrade() {
+    private int getGrade(int numCorrect) {
         // Grade values will be on a 0 - 9 int scale
         // A+, A, A-, B+, B, B-, C+, C, C-, D or lower
         // 0,  1, 2,  3,  4, 5,  6,  7, 8,  9
 
-        // TODO: Calculate grade and return proper value
-        return 5;
+        int gradeNum;
+        float percCorrect = numCorrect/totalNumberOfTestingProblems;
+        if (percCorrect >= 0.97) {
+            gradeNum = 0;
+        } else if (percCorrect >= 0.93) {
+            gradeNum = 1;
+        } else if (percCorrect >= 0.90) {
+            gradeNum = 2;
+        } else if (percCorrect >= 0.87) {
+            gradeNum = 3;
+        } else if (percCorrect >= 0.83) {
+            gradeNum = 4;
+        } else if (percCorrect >= 0.80) {
+            gradeNum = 5;
+        } else if (percCorrect >= 0.77) {
+            gradeNum = 6;
+        } else if (percCorrect >= 0.75) {
+            gradeNum = 7;
+        } else if (percCorrect >= 0.73) {
+            gradeNum = 8;
+        } else {
+            gradeNum = 9;
+        }
+
+        return gradeNum;
 
     }
 
-    private int getProbAnswered() {
-        // TODO: Fill in subroutine logic for getProbAnswered()
-        return 8;
+    private int updateGetProbAnswered(ArrayList<EditText> answerLines) {
+
+        SharedPreferences shPrefs = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = shPrefs.edit();
+
+        int numAnswered = 0;
+        String prefix = "section" + String.valueOf(sectionNumber) + ".";
+        for (int i=0; i < totalNumberOfTestingProblems; i++) {
+            String prob_prefix = "problem" + String.valueOf(i + 1) + ".";
+            boolean wasAnswered = shPrefs.getBoolean(prefix + prob_prefix + "test_attempted", false);
+            if (!wasAnswered) {
+                String answer = answerLines.get(i).getText().toString();
+                if (answer.length() > 0) {
+                    testingProbAnswered[i] = true;
+                    numAnswered += 1;
+                    editor.putBoolean(prefix + prob_prefix + "test_attempted", true);
+                }
+            }
+        }
+
+        editor.commit();
+        return numAnswered;
     }
 
-    private int getProbCorrect() {
-        // TODO: Fill in subroutine logic for getProbCorrect()
-        return 6;
-    }
+    private int updateGetProbCorrect(ArrayList<EditText> answerLines) {
 
-    // TODO: Fix layout of bottom two buttons
+        SharedPreferences shPrefs = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = shPrefs.edit();
+
+
+        int numCorrect = 0;
+        incorrectProblemKeys = new ArrayList();
+        incorrectAnswers = new ArrayList<String>();
+        String prefix = "section" + String.valueOf(sectionNumber) + ".";
+        for (int i=0; i < totalNumberOfTestingProblems; i++) {
+            String prob_prefix = "problem" + String.valueOf(i + 1) + ".";
+            boolean wasCorrect = shPrefs.getBoolean(prefix + prob_prefix + "test_correct", false);
+            String answer = answerLines.get(i).getText().toString();
+            if (!wasCorrect) {
+                if (answer == correctAnswers.get(i)) {
+                    testingProbCorrect[i] = true;
+                    numCorrect += 1;
+                    editor.putBoolean(prefix + prob_prefix + "test_correct", true);
+                }
+            }
+            if (!(answer == correctAnswers.get(i))) {
+                incorrectProblemKeys.add(i);
+                incorrectAnswers.add(answer);
+            }
+        }
+
+        editor.commit();
+        return numCorrect;
+    }
 
     private void reviewButtonPressed(final Button reviewBtnTop, final Button reviewBtnBot) {
         Log.i("TestPrepActFrag", "reviewButtonPressedStarted");

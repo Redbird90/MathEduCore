@@ -63,24 +63,35 @@ public class MainActivityFragment extends Fragment {
 
                 editor.putInt(prefix + "test_problems_attempted", 0);
                 editor.putInt(prefix + "test_problems_correct", 0);
+                editor.putInt(prefix + "test_best_grade", -1);
                 editor.putBoolean(prefix + "test_b1unlocked", false);
                 editor.putBoolean(prefix + "test_b2unlocked", false);
                 editor.putBoolean(prefix + "test_b3unlocked", false);
                 editor.putBoolean(prefix + "test_b4unlocked", false);
                 editor.putBoolean(prefix + "test_b5unlocked", false);
                 editor.putBoolean(prefix + "test_b6unlocked", false);
-                editor.putInt(prefix + "test_fastest_time", 0);
-                editor.putInt(prefix + "test_review_time", 0);
-                editor.putInt(prefix + "test_avg_completion_time", 0);
+                editor.putInt(prefix + "test_fastest_time", -1);
+                editor.putInt(prefix + "test_avg_review_time", -1);
+                editor.putInt(prefix + "test_avg_review_numbers", 0);
+                editor.putInt(prefix + "test_avg_completion_time", -1);
+                editor.putInt(prefix + "test_avg_completion_numbers", 0);
 
-                int prac_tot_problems = getResources().getInteger(R.integer.section1_prac_total_problems);
+                int prac_tot_problems;
+                int test_tot_problems;
+                if (sectionsCount + 1 == 1) {
+                    prac_tot_problems = getResources().getInteger(R.integer.section1_prac_total_problems);
+                    test_tot_problems = getResources().getInteger(R.integer.section1_test_total_problems);
+                } else {
+                    prac_tot_problems = 5;
+                    test_tot_problems = 5;
+                }
                 for (int x = 0; i < prac_tot_problems; i++) {
                     String prob_prefix = "problem" + String.valueOf(x + 1) + ".";
                     editor.putBoolean(prefix + prob_prefix + "practice_attempted", false);
                     editor.putBoolean(prefix + prob_prefix + "practice_correct", false);
                 }
 
-                int test_tot_problems = getResources().getInteger(R.integer.section1_test_total_problems);
+
                 for (int y = 0; i < test_tot_problems; i++) {
                     String prob_prefix = "problem" + String.valueOf(y + 1) + ".";
                     editor.putBoolean(prefix + prob_prefix + "test_attempted", false);
