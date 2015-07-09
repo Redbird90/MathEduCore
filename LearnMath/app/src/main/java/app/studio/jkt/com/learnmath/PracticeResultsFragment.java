@@ -109,8 +109,8 @@ public class PracticeResultsFragment extends Fragment {
                         sectionBadgeName = getString(R.string.practice_badge3_name);
                 }
                 textViewBadgesInfo.setText(getString(R.string
-                        .practice_results_one_badge_unlocked1) + sectionKey + sectionBadgeName
-                        + getString(R.string.practice_results_one_badge_unlocked2));
+                        .practice_results_one_badge_unlocked1) + sectionKey + " " + sectionBadgeName
+                        + "!");
             }
         } else {
             // TODO: insert conditions to handle 0 new badges or badges already unlocked

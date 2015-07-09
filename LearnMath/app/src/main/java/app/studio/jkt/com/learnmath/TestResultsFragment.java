@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class TestResultsFragment extends Fragment {
 
     private int sectionNumber;
+    private String sectionTitle;
     private ArrayList<Problem> incorrectProblemList;
     private ArrayList<Integer> newestBadgesArray;
 
@@ -36,6 +37,7 @@ public class TestResultsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_test_results, container, false);
 
         Intent currResultsIntent = getActivity().getIntent();
+        sectionTitle = currResultsIntent.getStringExtra(Intent.EXTRA_TEXT);
         sectionNumber = currResultsIntent.getIntExtra("sectionNumber", 1);
         boolean timeElapsed = currResultsIntent.getBooleanExtra("timeElapsed", false);
         int timeRemainingSec = currResultsIntent.getIntExtra("timeRemainingSec", 60);
@@ -69,8 +71,6 @@ public class TestResultsFragment extends Fragment {
             }
             incorrectProblemList.add(currIncProblem);
         }
-
-        //String prob_key_prefix = "problem_" + String.valueOf(i + 1);
 
         ImageView imageViewScore = (ImageView) rootView.findViewById(R.id.imageViewScore);
         TextView textViewProbCorrect = (TextView) rootView.findViewById(R.id
@@ -107,9 +107,25 @@ public class TestResultsFragment extends Fragment {
         setTextViewProblemsInfo(probsCorrect, probsAnswered, totalProblems, textViewProbCorrect, textViewProbAnswered);;
         setTextViewNewB(newBestGrade, textViewNewBest);
         setTextViewTimes(timeSpentSec, timeRemainingSec, timeInReviewSec, textViewTimeSpent, textViewTimeRemaining, textViewTimeReviewed);
-        setBadgesImageTextViews(imageViewBadge1, imageViewBadge2, imageViewBadge3, imageViewBadge4, imageViewBadge5, imageViewBadge6, textViewBadgesInfo);
+        setBadgesImageTextViews(sectionTitle, imageViewBadge1, imageViewBadge2, imageViewBadge3,
+                imageViewBadge4, imageViewBadge5, imageViewBadge6, textViewBadgesInfo);
 
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+
+        buttonReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reviewIntent = new Intent(getActivity(), testReview.class);
+
+                reviewIntent.putExtra("incorrectProblemsList", incorrectProblemList);
+
+            }
+        });
 
         
 
@@ -217,14 +233,22 @@ public class TestResultsFragment extends Fragment {
 
             int numOfNewBadges = newestBadgesArray.size();
             if (numOfNewBadges == 1) {
-                String sectionBadgeName;
+                String sectionBadgeName = null;
                 switch (newestBadgesArray.get(0)) {
                     case 1:
-                        sectionBadgeName = getString(R.string.)
+                        sectionBadgeName = getString(R.string.test_badge1_name);
                     case 2:
+                        sectionBadgeName = getString(R.string.test_badge2_name);
                     case 3:
+                        sectionBadgeName = getString(R.string.test_badge3_name);
+                    case 4:
+                        sectionBadgeName = getString(R.string.test_badge4_name);
+                    case 5:
+                        sectionBadgeName = getString(R.string.test_badge5_name);
+                    case 6:
+                        sectionBadgeName = getString(R.string.test_badge6_name);
                 }
-                tvBadgesInfo.setText(getString(R.string.practice_results_one_badge_unlocked1) + secTitle + sectionBadgeName);
+                tvBadgesInfo.setText(getString(R.string.practice_results_one_badge_unlocked1) + secTitle + " " + sectionBadgeName);
 
             }
 

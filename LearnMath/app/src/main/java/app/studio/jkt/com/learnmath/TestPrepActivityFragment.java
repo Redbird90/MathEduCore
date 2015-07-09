@@ -468,9 +468,9 @@ public class TestPrepActivityFragment extends Fragment {
             gradeNum = 5;
         } else if (percCorrect >= 0.77) {
             gradeNum = 6;
-        } else if (percCorrect >= 0.75) {
-            gradeNum = 7;
         } else if (percCorrect >= 0.73) {
+            gradeNum = 7;
+        } else if (percCorrect >= 0.70) {
             gradeNum = 8;
         } else {
             gradeNum = 9;
