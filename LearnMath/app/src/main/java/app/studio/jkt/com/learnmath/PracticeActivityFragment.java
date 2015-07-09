@@ -1,7 +1,5 @@
 package app.studio.jkt.com.learnmath;
 
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,19 +9,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -34,7 +24,7 @@ import java.util.ArrayList;
 public class PracticeActivityFragment extends Fragment {
 
     private int problemNumber;
-    public ArrayList<Problem> problemList;
+    public ArrayList<Problem> pracProblemList;
 
     public PracticeActivityFragment() {
     }
@@ -61,22 +51,21 @@ public class PracticeActivityFragment extends Fragment {
         Intent currIntent = getActivity().getIntent();
         final String sectionKey = currIntent.getStringExtra(Intent.EXTRA_TEXT);
 
-        problemList = new ArrayList<>();
-        final WordProblem wordProblem1 = new WordProblem("If Jeff walks 1/3 of a mile each 1/2 of an " +
-                "hour, how fast is Jeff walking in miles per hour?", "miles per hour", "2/3");
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
-        problemList.add(wordProblem1);
+        pracProblemList = new ArrayList<>();
+        final WordProblem wordProblem1 = new WordProblem("If Jeff walks 1/3 of a mile each 1/2 of an hour, how fast is Jeff walking in miles per hour?", "2/3");
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
+        pracProblemList.add(wordProblem1);
 
         problemNumber = 1;
-        for (int i=0; i<problemList.size(); i++) {
-            Problem currProblem = problemList.get(i);
+        for (int i=0; i< pracProblemList.size(); i++) {
+            Problem currProblem = pracProblemList.get(i);
             String probType = currProblem.getProblemType();
             if (probType == "word") {
                 WordProblem wordProblem = (WordProblem) currProblem;

@@ -29,6 +29,7 @@ public class TestPrepPrefsViewFragment extends Fragment {
 
         int chosenTimeKey = getResources().getInteger(R.integer.section1_test_time_recommended);
         final int[] timeValue = {getResources().getInteger(R.integer.section1_test_time3)};
+        final String sectionTitle = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
         View rootView = inflater.inflate(R.layout.fragment_test_prep_prefs_view, container, false);
 
@@ -96,6 +97,7 @@ public class TestPrepPrefsViewFragment extends Fragment {
                 Intent testIntent = new Intent(getActivity(), TestPrepActivity.class);
                 testIntent.putExtra("timeValue", timeValue[0]);
                 testIntent.putExtra("sectionNumber", sectionNumber);
+                testIntent.putExtra(Intent.EXTRA_TEXT, sectionTitle);
                 startActivity(testIntent);
             }
         });

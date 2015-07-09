@@ -12,6 +12,7 @@ public class WordProblem implements Problem {
     private String units;
     private String answer;
 
+
     public String getText() {
         return text;
     }
@@ -36,20 +37,18 @@ public class WordProblem implements Problem {
         this.answer = answer;
     }
 
-    public WordProblem(String text, String units, String answer) {
+    public WordProblem(String text, String answer) {
         this.text = text;
-        this.units = units;
         this.answer = answer;
     }
 
     public  WordProblem(Parcel in) {
 
-        String[] data = new String[3];
+        String[] data = new String[2];
 
         in.readStringArray(data);
         this.text = data[0];
-        this.units = data[1];
-        this.answer = data[2];
+        this.answer = data[1];
 
     }
 

@@ -76,5 +76,8 @@
     <string name="yes">Yes</string>
     <string name="testing_rev_btn_pressed">In Review Mode</string>
     <string name="not_yet">Not Yet</string>
+    <string name="testprep_time_spent">\"Time Spent: \"</string>
+    <string name="testprep_timeinreview">\"Time In Review: \"</string>
+    <string name="test"
 
 </resources>

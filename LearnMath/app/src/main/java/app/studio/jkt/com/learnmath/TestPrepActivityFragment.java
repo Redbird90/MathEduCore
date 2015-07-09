@@ -37,12 +37,14 @@ public class TestPrepActivityFragment extends Fragment {
     public ArrayList<String> incorrectAnswers;
     private ArrayList<String> correctAnswers;
     private ArrayList<EditText> editObjects;
+    private ArrayList<Integer> arrayTestNewBadges;
     private int timeValueSec;
     private int timeRemainingSec;
     private int sectionNumber;
     private boolean atReview;
     private int totAvailReviewTimeSec;
     private int totalNumberOfTestingProblems;
+    public ArrayList<Problem> testProblemList;
 
     public TestPrepActivityFragment() {
     }
@@ -58,6 +60,7 @@ public class TestPrepActivityFragment extends Fragment {
         Intent presentIntent = getActivity().getIntent();
         final Integer timeValueMin = presentIntent.getIntExtra("timeValue", 15);
         sectionNumber = presentIntent.getIntExtra("sectionNumber", 1);
+        final String sectionTitle = presentIntent.getStringExtra(Intent.EXTRA_TEXT);
 
         timeValueSec = timeValueMin * 60;
         timeRemainingSec = timeValueSec;
@@ -69,18 +72,25 @@ public class TestPrepActivityFragment extends Fragment {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams linLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        testingProblemList = new ArrayList<>();
-        final WordProblem wordProblemTest = new WordProblem("If John walks 5 miles in 6 hours, how far did he walk?", "miles", "30");
-        testingProblemList.add(wordProblemTest);
-        testingProblemList.add(wordProblemTest);
-        testingProblemList.add(wordProblemTest);
 
         if (sectionNumber == 1) {
             totalNumberOfTestingProblems = getResources().getInteger(R.integer
                     .section1_test_total_problems);
+            // Add problem information from problems.xml to testingProblemList
+            Problem problem1 = new WordProblem(getString(R.string.section1_test_problem1_q), getString(R.string.section1_test_problem1_a));
+            testingProblemList.add(problem1);
+            Problem problem2 = new WordProblem(getString(R.string.section1_test_problem2_q), getString(R.string.section1_practice_problem2_a));
+            testingProblemList.add(problem2);
+            Problem problem3 = new WordProblem(getString(R.string.section1_test_problem3_q), getString(R.string.section1_practice_problem3_a));
+            testingProblemList.add(problem3);
+            Problem problem4 = new WordProblem(getString(R.string.section1_test_problem4_q), getString(R.string.section1_test_problem4_a));
+            testingProblemList.add(problem4);
+            Problem problem5 = new WordProblem(getString(R.string.section1_test_problem5_q), getString(R.string.section1_test_problem5_a));
+            testingProblemList.add(problem5);
+        } else {
+            Log.e("TestPrepActFrag", "SECTION NUMBER UPDATED INCORRECTLY");
         }
-        // TODO: Remove line below once ArrayList properly fetches information
-        totalNumberOfTestingProblems = 3;
+
 
         testingProblemNumber = 1;
         correctAnswers = new ArrayList<String>(totalNumberOfTestingProblems);
@@ -152,10 +162,12 @@ public class TestPrepActivityFragment extends Fragment {
                 int problemsCorrect = updateGetProbCorrect(editObjects);
                 int grade = getGrade(problemsCorrect);
 
+                testResultsIntent2.putExtra("sectionNumber", sectionNumber);
+                testResultsIntent2.putExtra(Intent.EXTRA_TEXT, sectionTitle);
                 testResultsIntent2.putExtra("timeElapsed", true);
                 testResultsIntent2.putExtra("timeRemainingSec", 0);
 
-                testResultsIntent2.putExtra("timeSpentSec", timeValueSec);
+                testResultsIntent2.putExtra("timeSpentSec", timeSpentSec);
 
                 testResultsIntent2.putExtra("grade", grade);
                 testResultsIntent2.putExtra("gradeNewBest", updateGetGradeNewBest(grade));
@@ -171,8 +183,15 @@ public class TestPrepActivityFragment extends Fragment {
                 testResultsIntent2.putExtra("problemsAnswered", problemsAnswered);
 
                 testResultsIntent2.putExtra("problemsCorrect", problemsCorrect);
+                testResultsIntent2.putExtra("problemsTotal", totalNumberOfTestingProblems);
+
+                testResultsIntent2.putExtra("incorrectProbKeys", incorrectProblemKeys);
+                testResultsIntent2.putExtra("incorrectAnswers", incorrectAnswers);
 
                 updateRelevantPrefs(timeSpentSec, problemsAnswered, problemsCorrect, grade, timeInReviewSeconds);
+
+                testResultsIntent2.putExtra("testNewBadgesArray", arrayTestNewBadges);
+
                 startActivity(testResultsIntent2);
             }
         };
@@ -207,6 +226,8 @@ public class TestPrepActivityFragment extends Fragment {
                 int problemsCorrect = updateGetProbCorrect(editObjects);
                 int grade = getGrade(problemsCorrect);
 
+                testResultsIntent.putExtra("sectionNumber", sectionNumber);
+                testResultsIntent.putExtra(Intent.EXTRA_TEXT, sectionTitle);
                 testResultsIntent.putExtra("timeElapsed", false);
                 testResultsIntent.putExtra("timeRemainingSec", timeRemainingSec);
 
@@ -226,14 +247,15 @@ public class TestPrepActivityFragment extends Fragment {
                 testResultsIntent.putExtra("problemsAnswered", problemsAnswered);
 
                 testResultsIntent.putExtra("problemsCorrect", problemsCorrect);
+                testResultsIntent.putExtra("problemsTotal", totalNumberOfTestingProblems);
 
-                for (int y=0; y < incorrectProblemKeys.size(); y++) {
-                   String prob_key_prefix = "problem_" + String.valueOf(y + 1);
-                    testResultsIntent.putExtra(prob_key_prefix + "_incorrect", (int) incorrectProblemKeys.get(y));
-                    testResultsIntent.putExtra(prob_key_prefix + "_inc_answer", incorrectAnswers.get(y));
-                }
+                testResultsIntent.putExtra("incorrectProbKeys", incorrectProblemKeys);
+                testResultsIntent.putExtra("incorrectAnswers", incorrectAnswers);
 
                 updateRelevantPrefs(timeSpentSec, problemsAnswered, problemsCorrect, grade, timeInReviewSec);
+
+                testResultsIntent.putExtra("testNewBadgesArray", arrayTestNewBadges);
+
                 startActivity(testResultsIntent);
             }
         });
@@ -352,6 +374,8 @@ public class TestPrepActivityFragment extends Fragment {
         }
         editor.putInt(prefix + "test_problems_correct", testProbCorrect);
 
+        arrayTestNewBadges = new ArrayList<Integer>();
+
         boolean badge1unlocked = sharedPreferences.getBoolean(prefix + "test_b1unlocked", false);
         boolean badge2unlocked = sharedPreferences.getBoolean(prefix + "test_b2unlocked", false);
         boolean badge3unlocked = sharedPreferences.getBoolean(prefix + "test_b3unlocked", false);
@@ -362,21 +386,27 @@ public class TestPrepActivityFragment extends Fragment {
         float percentCorrect = problemsCorrect/totalNumberOfTestingProblems;
         if (!badge1unlocked &&  percentCorrect > 0.70) {
             editor.putBoolean(prefix + "test_b1unlocked", false);
+            arrayTestNewBadges.add(1);
         }
         if (!badge2unlocked && percentCorrect > 0.80) {
             editor.putBoolean(prefix + "test_b2unlocked", false);
+            arrayTestNewBadges.add(2);
         }
         if (!badge3unlocked && percentCorrect > 0.90) {
             editor.putBoolean(prefix + "test_b3unlocked", false);
+            arrayTestNewBadges.add(3);
         }
         if (!badge4unlocked && problemsAnswered == totalNumberOfTestingProblems) {
             editor.putBoolean(prefix + "test_b4unlocked", false);
+            arrayTestNewBadges.add(4);
         }
         if (!badge5unlocked && TimeUnit.SECONDS.toMinutes((long) timeInReviewSec) >= 4) {
             editor.putBoolean(prefix + "test_b5unlocked", false);
+            arrayTestNewBadges.add(5);
         }
         if (!badge6unlocked && TimeUnit.SECONDS.toMinutes((long) timeSpentSec) < 10) {
             editor.putBoolean(prefix + "test_b6unlocked", false);
+            arrayTestNewBadges.add(6);
         }
 
         int fastestTime = sharedPreferences.getInt("test_fastest_time", 3);
@@ -496,7 +526,7 @@ public class TestPrepActivityFragment extends Fragment {
                 }
             }
             if (!(answer == correctAnswers.get(i))) {
-                incorrectProblemKeys.add(i);
+                incorrectProblemKeys.add(i+1);
                 incorrectAnswers.add(answer);
             }
         }

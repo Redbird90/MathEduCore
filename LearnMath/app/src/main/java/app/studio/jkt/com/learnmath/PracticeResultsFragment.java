@@ -102,11 +102,11 @@ public class PracticeResultsFragment extends Fragment {
                 String sectionBadgeName = "Badge Name Debug: " + arrayNewBadges[0];
                 switch (arrayNewBadges[0]) {
                     case 0:
-                        sectionBadgeName = "Hard Worker";
+                        sectionBadgeName = getString(R.string.practice_badge1_name);
                     case 1:
-                        sectionBadgeName = "Quick Learner";
+                        sectionBadgeName = getString(R.string.practice_badge2_name);
                     case 2:
-                        sectionBadgeName = "Training Genius";
+                        sectionBadgeName = getString(R.string.practice_badge3_name);
                 }
                 textViewBadgesInfo.setText(getString(R.string
                         .practice_results_one_badge_unlocked1) + sectionKey + sectionBadgeName

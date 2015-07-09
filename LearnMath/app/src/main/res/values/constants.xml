@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="section1.prac_total_problems">9</integer>
-    <integer name="section1.test_total_problems">15</integer>
+    <integer name="section1.prac_total_problems">5</integer>
+    <integer name="section1.test_total_problems">5</integer>
     <integer name="section1.test_time1">8</integer>
     <integer name="section1.test_time2">12</integer>
     <integer name="section1.test_time3">18</integer>
