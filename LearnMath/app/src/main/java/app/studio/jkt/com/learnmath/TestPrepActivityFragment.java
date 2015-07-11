@@ -32,6 +32,8 @@ public class TestPrepActivityFragment extends Fragment {
     private int testingProblemNumber;
     public ArrayList<Problem> testingProblemList;
     public boolean[] testingProbCorrect;
+    private boolean[] priorProbCorrect;
+    private boolean[] priorProbAnswered;
     public boolean[] testingProbAnswered;
     public ArrayList incorrectProblemKeys;
     public ArrayList<String> incorrectAnswers;
@@ -44,7 +46,6 @@ public class TestPrepActivityFragment extends Fragment {
     private boolean atReview;
     private int totAvailReviewTimeSec;
     private int totalNumberOfTestingProblems;
-    public ArrayList<Problem> testProblemList;
 
     public TestPrepActivityFragment() {
     }
@@ -71,8 +72,9 @@ public class TestPrepActivityFragment extends Fragment {
         LinearLayout linearLayout = new LinearLayout(getActivity());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams linLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        linearLayout.setLayoutParams(linLayoutParams);
 
-
+        testingProblemList = new ArrayList<Problem>();
         if (sectionNumber == 1) {
             totalNumberOfTestingProblems = getResources().getInteger(R.integer
                     .section1_test_total_problems);
@@ -97,6 +99,8 @@ public class TestPrepActivityFragment extends Fragment {
         editObjects = new ArrayList<EditText>(totalNumberOfTestingProblems);
         testingProbAnswered = new boolean[totalNumberOfTestingProblems];
         testingProbCorrect = new boolean[totalNumberOfTestingProblems];
+        priorProbAnswered = new boolean[totalNumberOfTestingProblems];
+        priorProbCorrect = new boolean[totalNumberOfTestingProblems];
 
         for (int i=0; i < totalNumberOfTestingProblems; i++) {
             Problem currProblem = testingProblemList.get(i);
@@ -362,17 +366,22 @@ public class TestPrepActivityFragment extends Fragment {
 
         String prefix = "section" + String.valueOf(sectionNumber) + ".";
 
-        int testProbAttempted = sharedPreferences.getInt(prefix + "test_problems_attempted", 3);
-        if (problemsAnswered > testProbAttempted) {
-            testProbAttempted = problemsAnswered;
+        int totProbAttempted = 0;
+        int totProbCorrect = 0;
+        for (int x=0; x < totalNumberOfTestingProblems; x++) {
+            if (priorProbAnswered[x]) {
+                totProbAttempted += 1;
+            } else if (testingProbAnswered[x]) {
+                totProbAttempted += 1;
+            }
+            if (priorProbCorrect[x]) {
+                totProbCorrect += 1;
+            } else if (testingProbCorrect[x]) {
+                totProbCorrect += 1;
+            }
         }
-        editor.putInt(prefix + "test_problems_attempted", testProbAttempted);
-
-        int testProbCorrect = sharedPreferences.getInt(prefix + "test_problems_correct", 3);
-        if (problemsCorrect > testProbCorrect) {
-            testProbCorrect = problemsCorrect;
-        }
-        editor.putInt(prefix + "test_problems_correct", testProbCorrect);
+        editor.putInt(prefix + "test_problems_attempted", totProbAttempted);
+        editor.putInt(prefix + "test_problems_correct", totProbCorrect);
 
         arrayTestNewBadges = new ArrayList<Integer>();
 
@@ -385,27 +394,27 @@ public class TestPrepActivityFragment extends Fragment {
 
         float percentCorrect = problemsCorrect/totalNumberOfTestingProblems;
         if (!badge1unlocked &&  percentCorrect > 0.70) {
-            editor.putBoolean(prefix + "test_b1unlocked", false);
+            editor.putBoolean(prefix + "test_b1unlocked", true);
             arrayTestNewBadges.add(1);
         }
         if (!badge2unlocked && percentCorrect > 0.80) {
-            editor.putBoolean(prefix + "test_b2unlocked", false);
+            editor.putBoolean(prefix + "test_b2unlocked", true);
             arrayTestNewBadges.add(2);
         }
         if (!badge3unlocked && percentCorrect > 0.90) {
-            editor.putBoolean(prefix + "test_b3unlocked", false);
+            editor.putBoolean(prefix + "test_b3unlocked", true);
             arrayTestNewBadges.add(3);
         }
         if (!badge4unlocked && problemsAnswered == totalNumberOfTestingProblems) {
-            editor.putBoolean(prefix + "test_b4unlocked", false);
+            editor.putBoolean(prefix + "test_b4unlocked", true);
             arrayTestNewBadges.add(4);
         }
         if (!badge5unlocked && TimeUnit.SECONDS.toMinutes((long) timeInReviewSec) >= 4) {
-            editor.putBoolean(prefix + "test_b5unlocked", false);
+            editor.putBoolean(prefix + "test_b5unlocked", true);
             arrayTestNewBadges.add(5);
         }
         if (!badge6unlocked && TimeUnit.SECONDS.toMinutes((long) timeSpentSec) < 10) {
-            editor.putBoolean(prefix + "test_b6unlocked", false);
+            editor.putBoolean(prefix + "test_b6unlocked", true);
             arrayTestNewBadges.add(6);
         }
 
@@ -490,15 +499,22 @@ public class TestPrepActivityFragment extends Fragment {
         for (int i=0; i < totalNumberOfTestingProblems; i++) {
             String prob_prefix = "problem" + String.valueOf(i + 1) + ".";
             boolean wasAnswered = shPrefs.getBoolean(prefix + prob_prefix + "test_attempted", false);
+            String answer = answerLines.get(i).getText().toString().trim();
             if (!wasAnswered) {
-                String answer = answerLines.get(i).getText().toString();
                 if (answer.length() > 0) {
                     testingProbAnswered[i] = true;
                     numAnswered += 1;
                     editor.putBoolean(prefix + prob_prefix + "test_attempted", true);
                 }
+            } else {
+                if (answer.length() > 0) {
+                    testingProbAnswered[i] = true;
+                    numAnswered += 1;
+                }
+                priorProbAnswered[i] = true;
             }
         }
+
 
         editor.commit();
         return numAnswered;
@@ -517,15 +533,21 @@ public class TestPrepActivityFragment extends Fragment {
         for (int i=0; i < totalNumberOfTestingProblems; i++) {
             String prob_prefix = "problem" + String.valueOf(i + 1) + ".";
             boolean wasCorrect = shPrefs.getBoolean(prefix + prob_prefix + "test_correct", false);
-            String answer = answerLines.get(i).getText().toString();
+            String answer = answerLines.get(i).getText().toString().trim();
             if (!wasCorrect) {
                 if (answer == correctAnswers.get(i)) {
                     testingProbCorrect[i] = true;
                     numCorrect += 1;
                     editor.putBoolean(prefix + prob_prefix + "test_correct", true);
                 }
+            } else {
+                if (answer == correctAnswers.get(i)) {
+                    testingProbCorrect[i] = true;
+                    numCorrect += 1;
+                }
+                priorProbCorrect[i] = true;
             }
-            if (!(answer == correctAnswers.get(i))) {
+            if (answer != correctAnswers.get(i)) {
                 incorrectProblemKeys.add(i+1);
                 incorrectAnswers.add(answer);
             }

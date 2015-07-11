@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <integer name="section1.learn_topicnum">4</integer>
     <integer name="section1.prac_total_problems">5</integer>
     <integer name="section1.test_total_problems">5</integer>
     <integer name="section1.test_time1">8</integer>

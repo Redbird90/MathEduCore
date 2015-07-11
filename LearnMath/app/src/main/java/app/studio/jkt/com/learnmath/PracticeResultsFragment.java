@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -37,8 +38,8 @@ public class PracticeResultsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_practice_results, container, false);
 
         Intent intent = getActivity().getIntent();
-
-        String sectionKey = intent.getStringExtra(Intent.EXTRA_TEXT);
+        final String sectionKey = intent.getStringExtra(Intent.EXTRA_TEXT);
+        final int sectionNumber = intent.getIntExtra("sectionNumber", 1);
 
         TextView textViewCongrats = (TextView) rootView.findViewById(R.id.textViewCongrats);
         TextView textViewAnswered = (TextView) rootView.findViewById(R.id.textViewAnswered);
@@ -63,9 +64,27 @@ public class PracticeResultsFragment extends Fragment {
         textViewCorrect.setText(correctSetText());
         setTextViewNewBestAttributes(textViewNewBest);
         setImageViewBadges(imageViewStarterBadge, imageViewQuickBadge, imageViewTrainingBadge);
-        setTextViewBadgesInfo(textViewBadgesInfo);
+        setTextViewBadgesInfo(sectionNumber, textViewBadgesInfo);
         setTextViewRetry(textViewRetry);
         // Retry Buttons text already set; constants
+
+        buttonRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent currentIntent = getActivity().getIntent();
+                ArrayList<Integer> retryProbKeys = currentIntent.getIntegerArrayListExtra("arrayIncorrectProbKeys");
+                ArrayList<String> priorIncAnswers = currentIntent.getStringArrayListExtra("pracIncorrectAnswers");
+
+                Intent retryIntent = new Intent(getActivity(), PracticeRetry.class);
+
+                retryIntent.putExtra(Intent.EXTRA_TEXT, sectionKey);
+                retryIntent.putExtra("sectionNumber", sectionNumber);
+                retryIntent.putExtra("retryProblemKeys", retryProbKeys);
+                retryIntent.putExtra("userAnswers", priorIncAnswers);
+
+                startActivity(retryIntent);
+            }
+        });
 
         return rootView;
     }
@@ -73,11 +92,11 @@ public class PracticeResultsFragment extends Fragment {
     private void setTextViewRetry(TextView textViewRetry) {
 
         Intent intent = getActivity().getIntent();
-        Bundle data = intent.getExtras();
-        Parcelable[] incorrectProblems = data.getParcelableArray
-                ("arrayIncorrectQuestions");
+        //Bundle data = intent.getExtras();
+        //Parcelable[] incorrectProblems = data.getParcelableArray("arrayIncorrectQuestions");
+        ArrayList<Integer> incorrectProbKeys = intent.getIntegerArrayListExtra("arrayIncorrectProbKeys");
 
-        if (incorrectProblems.length > 0) {
+        if (incorrectProbKeys.size() > 0) {
             textViewRetry.setText(getString(R.string.practice_results_retry_incorrect));
         } else {
             textViewRetry.setText(getString(R.string.practice_results_retry_correct));
@@ -85,22 +104,22 @@ public class PracticeResultsFragment extends Fragment {
 
     }
 
-    private void setTextViewBadgesInfo(TextView textViewBadgesInfo) {
+    private void setTextViewBadgesInfo(int sectionNumber, TextView textViewBadgesInfo) {
 
         Intent intent = getActivity().getIntent();
-        int[] arrayNewBadges = intent.getIntArrayExtra("arrayNewBadges");
+        ArrayList<Integer> arrayNewBadges = intent.getIntegerArrayListExtra("arrayNewBadges");
         String sectionKey = intent.getStringExtra(Intent.EXTRA_TEXT);
 
 
-        if (arrayNewBadges.length > 0) {
-            if (arrayNewBadges.length == 3) {
+        if (arrayNewBadges.size() > 0) {
+            if (arrayNewBadges.size() == 3) {
                 textViewBadgesInfo.setText(getString(R.string
                         .practice_results_all_badges_unlocked));
-            } else if (arrayNewBadges.length == 2) {
+            } else if (arrayNewBadges.size() == 2) {
                 textViewBadgesInfo.setText(getString(R.string.practice_results_two_badges_unlocked));
             } else {
-                String sectionBadgeName = "Badge Name Debug: " + arrayNewBadges[0];
-                switch (arrayNewBadges[0]) {
+                String sectionBadgeName = "Badge Name Debug: " + arrayNewBadges.get(0);
+                switch (arrayNewBadges.get(0)) {
                     case 0:
                         sectionBadgeName = getString(R.string.practice_badge1_name);
                     case 1:
@@ -113,7 +132,13 @@ public class PracticeResultsFragment extends Fragment {
                         + "!");
             }
         } else {
-            // TODO: insert conditions to handle 0 new badges or badges already unlocked
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
+            String prefix = "section" + String.valueOf(sectionNumber) + ".";
+            if (sharedPreferences.getBoolean(prefix + "prac_b1unlocked", false) && sharedPreferences.getBoolean(prefix + "prac_b2unlocked", false) && sharedPreferences.getBoolean(prefix + "prac_b3unlocked", false)) {
+                textViewBadgesInfo.setText(getString(R.string.practice_results_all_badges_unlocked));
+            } else {
+                textViewBadgesInfo.setText(getString(R.string.practice_results_no_badges));
+            }
         }
     }
 
@@ -123,9 +148,7 @@ public class PracticeResultsFragment extends Fragment {
         Intent currentIntent = getActivity().getIntent();
         int sectionNumber = currentIntent.getIntExtra("sectionNumber", 5);
 
-        // TODO: Create data storage system for keeping track of user progress
-/*        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("progress",
-Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("progress", Context.MODE_PRIVATE);
         String prefix = "section" + String.valueOf(sectionNumber) + ".";
         if (sharedPreferences.getBoolean(prefix + "prac_b1unlocked", false)) {
             imageViewStarterBadge.setImageResource(R.drawable.practicebadge1);
@@ -135,11 +158,7 @@ Context.MODE_PRIVATE);
         }
         if (sharedPreferences.getBoolean(prefix + "prac_b3unlocked", false)) {
             imageViewTrainingBadge.setImageResource(R.drawable.practicebadge3);
-        }*/
-
-        // in the meantime...
-        imageViewStarterBadge.setImageResource(R.drawable.practicebadge1);
-        imageViewQuickBadge.setImageResource(R.drawable.practicebadge2);
+        }
 
     }
 

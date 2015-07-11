@@ -56,6 +56,18 @@
             android:name=".TestResults"
             android:label="@string/title_activity_test_results" >
         </activity>
+        <activity
+            android:name=".TestReview"
+            android:label="@string/title_activity_test_review" >
+        </activity>
+        <activity
+            android:name=".PracticeRetry"
+            android:label="@string/title_activity_practice_retry" >
+        </activity>
+        <activity
+            android:name=".LearnActivity"
+            android:label="@string/title_activity_learn" >
+        </activity>
     </application>
 
 </manifest>

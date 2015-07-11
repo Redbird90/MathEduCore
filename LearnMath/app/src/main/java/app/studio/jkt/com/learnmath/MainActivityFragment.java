@@ -28,6 +28,9 @@ public class MainActivityFragment extends Fragment {
 
         }
 
+    // upon each practice/testing activity create boolean[] from correct answers
+    // and prior correct answers, then
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

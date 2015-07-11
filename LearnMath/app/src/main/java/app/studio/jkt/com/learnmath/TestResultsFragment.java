@@ -49,7 +49,7 @@ public class TestResultsFragment extends Fragment {
         int probsCorrect = currResultsIntent.getIntExtra("problemsCorrect", 0);
         int totalProblems = currResultsIntent.getIntExtra("problemsTotal", getResources().getInteger(R.integer.section1_test_total_problems));
         ArrayList<Integer> incorrectProblemKeys = currResultsIntent.getIntegerArrayListExtra("incorrectProbKeys");
-        ArrayList<String> incorrectAnswers = currResultsIntent.getStringArrayListExtra("incorrectAnswers");
+        final ArrayList<String> incorrectAnswers = currResultsIntent.getStringArrayListExtra("incorrectAnswers");
         newestBadgesArray = currResultsIntent.getIntegerArrayListExtra("testNewBadgesArray");
 
         incorrectProblemList = new ArrayList<Problem>(incorrectProblemKeys.size());
@@ -57,19 +57,21 @@ public class TestResultsFragment extends Fragment {
 
             // Initialize currIncProblem in case cases not satisfied
             Problem currIncProblem = null;
-            switch (incorrectProblemKeys.get(i)) {
-                case 1:
-                    currIncProblem = new WordProblem(getString(R.string.section1_test_problem1_q), getString(R.string.section1_test_problem1_a));
-                case 2:
-                    currIncProblem = new WordProblem(getString(R.string.section1_practice_problem2_q), getString(R.string.section1_practice_problem3_a));
-                case 3:
-                    currIncProblem = new WordProblem(getString(R.string.section1_test_problem3_q), getString(R.string.section1_test_problem3_a));
-                case 4:
-                    currIncProblem = new WordProblem(getString(R.string.section1_test_problem4_q), getString(R.string.section1_test_problem4_a));
-                case 5:
-                    currIncProblem = new WordProblem(getString(R.string.section1_test_problem5_q), getString(R.string.section1_test_problem5_a));
+            if (sectionNumber == 1) {
+                switch (incorrectProblemKeys.get(i)) {
+                    case 1:
+                        currIncProblem = new WordProblem(getString(R.string.section1_test_problem1_q), getString(R.string.section1_test_problem1_a));
+                    case 2:
+                        currIncProblem = new WordProblem(getString(R.string.section1_practice_problem2_q), getString(R.string.section1_practice_problem3_a));
+                    case 3:
+                        currIncProblem = new WordProblem(getString(R.string.section1_test_problem3_q), getString(R.string.section1_test_problem3_a));
+                    case 4:
+                        currIncProblem = new WordProblem(getString(R.string.section1_test_problem4_q), getString(R.string.section1_test_problem4_a));
+                    case 5:
+                        currIncProblem = new WordProblem(getString(R.string.section1_test_problem5_q), getString(R.string.section1_test_problem5_a));
+                }
+                incorrectProblemList.add(currIncProblem);
             }
-            incorrectProblemList.add(currIncProblem);
         }
 
         ImageView imageViewScore = (ImageView) rootView.findViewById(R.id.imageViewScore);
@@ -107,8 +109,7 @@ public class TestResultsFragment extends Fragment {
         setTextViewProblemsInfo(probsCorrect, probsAnswered, totalProblems, textViewProbCorrect, textViewProbAnswered);;
         setTextViewNewB(newBestGrade, textViewNewBest);
         setTextViewTimes(timeSpentSec, timeRemainingSec, timeInReviewSec, textViewTimeSpent, textViewTimeRemaining, textViewTimeReviewed);
-        setBadgesImageTextViews(sectionTitle, imageViewBadge1, imageViewBadge2, imageViewBadge3,
-                imageViewBadge4, imageViewBadge5, imageViewBadge6, textViewBadgesInfo);
+        setBadgesImageTextViews(sectionTitle, imageViewBadge1, imageViewBadge2, imageViewBadge3, imageViewBadge4, imageViewBadge5, imageViewBadge6, textViewBadgesInfo);
 
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,14 +121,29 @@ public class TestResultsFragment extends Fragment {
         buttonReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent reviewIntent = new Intent(getActivity(), testReview.class);
+                Intent reviewIntent = new Intent(getActivity(), TestReview.class);
 
                 reviewIntent.putExtra("incorrectProblemsList", incorrectProblemList);
+                reviewIntent.putExtra("incorrectAnswers", incorrectAnswers);
+                reviewIntent.putExtra(Intent.EXTRA_TEXT, sectionTitle);
+                reviewIntent.putExtra("sectionNumber", sectionNumber);
+
+                startActivity(reviewIntent);
 
             }
         });
 
-        
+        buttonBackToMM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainMenuIntent = new Intent(getActivity(), MainActivity.class);
+
+                mainMenuIntent.putExtra("fromValue", "testprep");
+
+                startActivity(mainMenuIntent);
+
+            }
+        });
 
         return rootView;
     }

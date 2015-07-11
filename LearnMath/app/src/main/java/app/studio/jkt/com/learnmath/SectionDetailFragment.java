@@ -35,8 +35,11 @@ public class SectionDetailFragment extends Fragment {
         imageButtonL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent learnIntent = new Intent(getActivity(), LearnActivity.class);
-                //startActivity(learnIntent);
+                Intent learnIntent = new Intent(getActivity(), LearnActivity.class);
+                Intent currIntent3 = getActivity().getIntent();
+                learnIntent.putExtra(Intent.EXTRA_TEXT,currIntent3.getStringArrayExtra(Intent.EXTRA_TEXT));
+                learnIntent.putExtra("sectionNumber", currIntent3.getIntExtra("sectionNumber", 1));
+                startActivity(learnIntent);
             }
         });
         imageButtonL.setImageResource(R.drawable.learnbtn);
