@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -78,6 +79,14 @@ public class SectionDetailFragment extends Fragment {
         //        .samplescrollableimage, 480, 2400));
 
         // TODO: Set click listener for buttonSDBack
+        Button buttonSectionBack = (Button) rootView.findViewById(R.id.buttonSDBack);
+        buttonSectionBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sectionsViewIntent = new Intent(getActivity(), SectionsView.class);
+                startActivity(sectionsViewIntent);
+            }
+        });
 
         return rootView;
     }

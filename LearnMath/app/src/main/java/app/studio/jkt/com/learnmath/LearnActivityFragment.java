@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,12 +55,14 @@ public class LearnActivityFragment extends Fragment {
 
         if (sectionNumber == 1) {
             int numOfTopics = getResources().getInteger(R.integer.section1_learn_topicnum);
+            topicButtonArray = new ArrayList<Button>(numOfTopics);
             learnIVResArray = loadDrawResources(numOfTopics);
             String[] romanNum = new String[] {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
             for (int i=0; i < numOfTopics; i++) {
                 Button topicButton = new Button(getActivity());
                 topicButton.setText(romanNum[i]);
                 topicButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                // TODO: Fix layout weight of buttons as added
                 //topicButton.setOnClickListener();
                 topicButtonArray.add(topicButton);
                 outerLinearLayout.addView(topicButton);

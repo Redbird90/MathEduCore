@@ -43,6 +43,7 @@
     <string name="progress_prob_defeated">"Problems Defeated: "</string>
     <string name="progress_best_score">"Best Test Score: "</string>
     <string name="progress_last_score">"Last Test Score: "</string>
+    <string name="progress_score_missing">No tests taken yet!</string>
     <string name="title_activity_section_completion">SectionCompletion</string>
     <string name="progress_practice_header">Practice</string>
     <string name="progress_test_header">Test Prep</string>

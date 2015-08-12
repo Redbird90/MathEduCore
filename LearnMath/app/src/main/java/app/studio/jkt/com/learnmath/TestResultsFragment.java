@@ -3,7 +3,6 @@ package app.studio.jkt.com.learnmath;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.tv.TvInputManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -152,25 +151,25 @@ public class TestResultsFragment extends Fragment {
 
         switch (grade) {
             case 0:
-                imageViewScore.setImageResource(R.drawable.test_gradeAp);
+                imageViewScore.setImageResource(R.drawable.test_gradeap);
             case 1:
-                imageViewScore.setImageResource(R.drawable.test_gradeA);
+                imageViewScore.setImageResource(R.drawable.test_gradea);
             case 2:
-                imageViewScore.setImageResource(R.drawable.test_gradeAm);
+                imageViewScore.setImageResource(R.drawable.test_gradeam);
             case 3:
-                imageViewScore.setImageResource(R.drawable.test_gradeBp);
+                imageViewScore.setImageResource(R.drawable.test_gradebp);
             case 4:
-                imageViewScore.setImageResource(R.drawable.test_gradeB);
+                imageViewScore.setImageResource(R.drawable.test_gradeb);
             case 5:
-                imageViewScore.setImageResource(R.drawable.test_gradeBm);
+                imageViewScore.setImageResource(R.drawable.test_gradebm);
             case 6:
-                imageViewScore.setImageResource(R.drawable.test_gradeCp);
+                imageViewScore.setImageResource(R.drawable.test_gradecp);
             case 7:
-                imageViewScore.setImageResource(R.drawable.test_gradeC);
+                imageViewScore.setImageResource(R.drawable.test_gradec);
             case 8:
-                imageViewScore.setImageResource(R.drawable.test_gradeCm);
+                imageViewScore.setImageResource(R.drawable.test_gradecm);
             case 9:
-                imageViewScore.setImageResource(R.drawable.test_gradeD);
+                imageViewScore.setImageResource(R.drawable.test_graded);
         }
 
     }

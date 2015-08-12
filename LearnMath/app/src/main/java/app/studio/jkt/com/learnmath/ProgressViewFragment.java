@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +73,21 @@ public class ProgressViewFragment extends Fragment {
 
         textViewProblemsDefeated.setText(getString(R.string.progress_prob_defeated) + String.valueOf(sharedPreferences.getInt("problems_defeated", 1)));
 
-        textViewBestScore.setText(getString(R.string.progress_best_score) + String.valueOf(sharedPreferences.getString("best_score", "N/A")));
+        if (sharedPreferences.getInt("best_score", 0) == -1) {
+            textViewBestScore.setText(getString(R.string.progress_best_score) + getString(R.string
+                    .progress_score_missing));
+        } else {
+            textViewBestScore.setText(getString(R.string.progress_best_score) + String.valueOf
+                    (sharedPreferences.getInt("best_score", -1)));
+        }
 
-        textViewLastScore.setText(getString(R.string.progress_last_score) + String.valueOf(sharedPreferences.getString("last_score", "N/A")));
+        if (sharedPreferences.getInt("last_score", 0) == -1) {
+            textViewLastScore.setText(getString(R.string.progress_last_score) + getString(R
+                    .string.progress_score_missing));
+        } else {
+            textViewLastScore.setText(getString(R.string.progress_last_score) + String.valueOf
+                    (sharedPreferences.getInt("last_score", -1)));
+        }
 
 
         return rootView;
