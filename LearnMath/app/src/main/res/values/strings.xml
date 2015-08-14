@@ -105,4 +105,6 @@
     <string name="learn_esc_dialog_header">Exit</string>
     <string name="learn_esc_dialog_msg">Would you like to return to Section Information?</string>
 
+    <string name="study_return_to_section_details">Return to Section Details</string>
+
 </resources>
