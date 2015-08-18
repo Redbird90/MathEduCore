@@ -3,6 +3,7 @@ package app.studio.jkt.com.learnmath;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,9 @@ public class PracticeRetryFragment extends Fragment {
         ScrollView scrollViewRetry = (ScrollView) rootView.findViewById(R.id.scrollViewPracRetry);
 
         LinearLayout linearLayout = new LinearLayout(getActivity());
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
+                .MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         ArrayList<Problem> retryProbsList = new ArrayList<Problem>(retryProblemKeys.size());
 
@@ -55,6 +59,8 @@ public class PracticeRetryFragment extends Fragment {
             Problem currRetryProb = null;
             if (sectionNumber == 1) {
                 switch (retryProblemKeys.get(i)) {
+                    case 0:
+                        currRetryProb = new WordProblem(getString(R.string.section1_practice_problem1_q), getString(R.string.section1_practice_problem1_a));
                     case 1:
                         currRetryProb = new WordProblem(getString(R.string.section1_practice_problem1_q), getString(R.string.section1_practice_problem1_a));
                     case 2:
@@ -70,7 +76,7 @@ public class PracticeRetryFragment extends Fragment {
             }
         }
 
-        int probNumber = 0;
+        int probNumber = 1;
         for (int x=0; x < retryProbsList.size(); x++) {
             Problem currProbToInflate = retryProbsList.get(x);
             String probType = currProbToInflate.getProblemType();
@@ -85,7 +91,6 @@ public class PracticeRetryFragment extends Fragment {
                 textViewQ.setText(String.valueOf(probNumber) + ". " + wordProblem.getText());
                 textViewQ.setPadding(25, 30, 25, 0);
                 buttonShowAns.setText(getString(R.string.practice_retry_show));
-                buttonShowAns.setPadding(0, 0, 0, 30);
                 textViewUserAnswer.setText(getString(R.string.practice_retry_user_answer) + userAnswers.get(x));
 
                 buttonShowAns.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +107,9 @@ public class PracticeRetryFragment extends Fragment {
                 });
 
                 LinearLayout.LayoutParams questionLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                LinearLayout.LayoutParams ansLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams ansLayoutParams = new LinearLayout.LayoutParams
+                        (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                ansLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
 
                 textViewQ.setLayoutParams(questionLayoutParams);
                 buttonShowAns.setLayoutParams(ansLayoutParams);

@@ -112,8 +112,8 @@ public class PracticeActivityFragment extends Fragment {
 
                 LinearLayout.LayoutParams textQLayoutParams = new LinearLayout.LayoutParams(LinearLayout
                         .LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                LinearLayout.LayoutParams editLayoutParams = new LinearLayout.LayoutParams(LinearLayout
-                        .LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                LinearLayout.LayoutParams editLayoutParams = new LinearLayout.LayoutParams(dip
+                        (getActivity(), 100), dip(getActivity(), 50));
                 editLayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
 
                 textViewQ.setLayoutParams(textQLayoutParams);
@@ -244,7 +244,7 @@ public class PracticeActivityFragment extends Fragment {
 
         int numAnswered = 0;
         String prefix = "section" + String.valueOf(sectionNumber) + ".";
-        for (int i=0; i < totalNumPracProblems; i++) {
+        for (int i=0; i < editLinesArray.size(); i++) {
             String prob_prefix = "problem" + String.valueOf(i + 1) + ".";
             boolean wasAnswered = sharedPreferences.getBoolean(prefix + prob_prefix + "practice_attempted", false);
             String answer = editLinesArray.get(i).getText().toString();
@@ -253,13 +253,13 @@ public class PracticeActivityFragment extends Fragment {
                     pracCurrAnswered[i] = true;
                     numAnswered += 1;
                     editor.putBoolean(prefix + prob_prefix + "practice_attempted", true);
-                } else {
-                    if (answer.length() > 0) {
-                        pracCurrAnswered[i] = true;
-                        numAnswered += 1;
-                    }
-                    pracPriorAnswered[i] = true;
                 }
+            } else {
+                if (answer.length() > 0) {
+                    pracCurrAnswered[i] = true;
+                    numAnswered += 1;
+                }
+                pracPriorAnswered[i] = true;
             }
         }
         editor.commit();
@@ -287,13 +287,13 @@ public class PracticeActivityFragment extends Fragment {
                     pracCurrCorrect[i] = true;
                     numCorrect += 1;
                     editor.putBoolean(prefix + prob_prefix + "practice_correct", true);
-                } else {
-                    if (answer == pracCorrectAnswers.get(i)) {
-                        pracCurrCorrect[i] = true;
-                        numCorrect += 1;
-                    }
-                    pracPriorCorrect[i] = true;
                 }
+            } else {
+                if (answer == pracCorrectAnswers.get(i)) {
+                    pracCurrCorrect[i] = true;
+                    numCorrect += 1;
+                }
+                pracPriorCorrect[i] = true;
             }
             if (answer != pracCorrectAnswers.get(i)) {
                 pracIncorrectProbKeys.add(i+1);
@@ -318,5 +318,10 @@ public class PracticeActivityFragment extends Fragment {
         } else {
             return "View is non-null";
         }
+    }
+
+    public static int dip(Context context, int pixels) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pixels * scale + 0.5f);
     }
 }

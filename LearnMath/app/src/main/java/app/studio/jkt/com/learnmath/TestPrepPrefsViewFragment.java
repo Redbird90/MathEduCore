@@ -72,9 +72,13 @@ public class TestPrepPrefsViewFragment extends Fragment {
             timeValue[0] = getResources().getInteger(R.integer.section1_test_time2);
             
         } else if (chosenTimeKey == 3) {
-            
-            ViewGroup.MarginLayoutParams buttonT3LayParams = (ViewGroup.MarginLayoutParams) buttonT3.getLayoutParams();
+
+            Log.i("TestPrepPrefsV", "chosen3");
+            LinearLayout.LayoutParams buttonT3LayParams = (LinearLayout.LayoutParams) buttonT3.getLayoutParams();
+            Log.i("TestPrepPrefsV", String.valueOf(buttonT3LayParams.leftMargin));
+            Log.i("TestPrepPrefsV", String.valueOf(recTextLayParams.leftMargin));
             recTextLayParams.leftMargin = buttonT3LayParams.leftMargin;
+            Log.i("TestPrepPrefsV", String.valueOf(recTextLayParams.leftMargin));
             textViewRecText.setLayoutParams(recTextLayParams);
             timeValue[0] = getResources().getInteger(R.integer.section1_test_time3);
             

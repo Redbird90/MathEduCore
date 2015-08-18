@@ -86,6 +86,18 @@ public class PracticeResultsFragment extends Fragment {
             }
         });
 
+        buttonBackToSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sectionDetailIntent = new Intent(getActivity(), SectionDetail.class);
+
+                sectionDetailIntent.putExtra(Intent.EXTRA_TEXT, sectionKey);
+                sectionDetailIntent.putExtra("sectionNumber", sectionNumber);
+
+                startActivity(sectionDetailIntent);
+            }
+        });
+
         return rootView;
     }
 
@@ -200,9 +212,9 @@ public class PracticeResultsFragment extends Fragment {
         String text;
 
         Intent intent = getActivity().getIntent();
-        int totAnswers = intent.getIntExtra("numTotalAnswers", 1);
+        int totCorrect = intent.getIntExtra("numCorrectAnswers", 1);
 
-        if (totAnswers > 0) {
+        if (totCorrect > 0) {
             Random random = new Random();
             int randInt = random.nextInt(7);
             text = congratsTexts[randInt];

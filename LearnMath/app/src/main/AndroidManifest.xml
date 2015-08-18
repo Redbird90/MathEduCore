@@ -26,7 +26,8 @@
         </activity>
         <activity
             android:name=".PracticeActivity"
-            android:label="@string/title_activity_practice" >
+            android:label="@string/title_activity_practice"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".PracticeResults"

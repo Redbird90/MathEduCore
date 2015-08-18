@@ -64,7 +64,7 @@
     <string name="back_button">Back</string>
     <string name="title_activity_test_prep">TestPrepActivity</string>
     <string name="title_activity_test_prep_prefs_view">TestPrepPrefsView</string>
-    <string name="testprep_recommendation">For the test prep section there are several recommendations:/nTry to complete the test with a time requirement.</string>
+    <string name="testprep_recommendation">"For the test prep section there are several recommendations: /nTry to complete the test with a time requirement."</string>
     <string name="testprep_start_button">Start Test</string>
     <string name="testprep_time_allowed">Time Allowed</string>
     <string name="testprep_recommended_text">(Recommended)</string>
